@@ -12,15 +12,15 @@ function Series() {
   }, [dispatch]);
 
   return (
-    <section className="bg-rose-950 col-span-2 rounded-2xl relative">
+    <section className="bg-rose-600 col-span-2 rounded-2xl relative overflow-hidden">
       {isSeriesLoading ? (
         <Spinner />
       ) : (
         <>
-          <h1 className="text-white font-bold text-xl text-center relative top-2 h-4">
+          <h1 className="text-white font-bold text-xl text-center relative top-2 h-4 font-thin">
             Series
           </h1>
-          <div className="grid grid-cols-4 grid-rows-1 absolute right-0 left-2 mt-8 overflow-y-scroll h-[20rem]">
+          <div className="grid grid-cols-4 grid-rows-1 absolute right-0 left-2 mt-8 h-[20rem] overflow-auto">
             {seriesPoster?.map((item, i) => {
               return (
                 <div className="flex flex-col gap-4 items-center" key={i}>

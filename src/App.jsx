@@ -6,7 +6,7 @@ import store from "./Store/store";
 function App() {
   return (
     <Provider store={store}>
-      <main className="bg-blue-800 h-[60rem] pl-5 pr-5 pb-5  overflow-hidden">
+      <main className="bg-blue-950 h-[60rem] pl-5 pr-5 pb-5  overflow-hidden">
         <Search />
         <section className="grid grid-cols-5 h-4/5 gap-10">
           <Movies />

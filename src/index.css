@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;700;800&display=swap");
 
 ::-webkit-scrollbar {
   width: 10px;
@@ -23,4 +24,9 @@
 
 body {
   overflow: hidden;
+}
+main {
+  background: #c31432;
+  background: -webkit-linear-gradient(to left, #240b36, #c31432);
+  background: linear-gradient(to left, #240b36, #c31432);
 }
