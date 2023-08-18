@@ -1,12 +1,13 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchMovies } from "../features/movies/moviesActions";
+import { fetchMovies } from "../../features/movies/moviesActions";
 
-import Spinner from "./Spinner/Spinner";
-import Paginate from "./Paginate";
-import { Link } from "react-router-dom";
+import Spinner from "../../Components/Spinner/Spinner";
+import Paginate from "../../Components/Paginate";
+import "./MoviesPage.css";
+import { Search } from "../../Components";
 
-function Movies() {
+function MoviesPage() {
   return (
     <MoviesSection>
       <Paginate />
@@ -26,29 +27,33 @@ function MoviesSection({ children }) {
   }, [dispatch, popularMoviesPage]);
 
   return (
-    <section className="col-span-3 row-span-2 relative bg-sky-600 rounded-2xl overflow-hidden">
+    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-scroll overflow-x-hidden">
+      <img
+        className="absolute h-[180vh] blur-sm"
+        src="/images/movie-bg.jpg"
+        alt="movie bg"
+      />
       {isMoviesLoading ? (
         <Spinner />
       ) : (
         <>
-          <div className="overflow-hidden flex justify-between ml-8 mr-6 h-14 top-4 relative items-center">
+          <div className="flex ml-8 mr-6 h-14 top-4 relative items-center">
             <h1 className="text-white text-xl text-center relative font-thin">
               Movies - Popular
             </h1>
-            {children}
-            <Link
-              to="/movies"
-              className="bg-blue-700 flex justify-center items-center pl-4 pr-4 rounded-3xl text-white h-12 hover:bg-black transition-all"
-            >
-              See More &#10140;
-            </Link>
+            <div className="m-auto relative bottom-6">
+              <Search />
+            </div>
           </div>
-          <div className="grid grid-cols-5 left-3 top-2 relative overflow-auto mt-4 p-4 pb-28 h-[48rem]">
+          <div className="grid grid-cols-6 relative overflow-x-hidden overflow-scroll mt-4 p-4">
             {popularMovies?.map((movie, i) => {
               return (
-                <div className="flex flex-col items-center pr-5 mt-4 " key={i}>
+                <div
+                  className="flex flex-col items-center justify-center"
+                  key={i}
+                >
                   <img
-                    className=" w-44 h-64 mb-8 rounded"
+                    className="w-56 h-80 mb-8 rounded"
                     src={movie.poster_path}
                     alt="poster"
                   />
@@ -58,6 +63,7 @@ function MoviesSection({ children }) {
                 </div>
               );
             })}
+            {children}
           </div>
         </>
       )}
@@ -65,4 +71,4 @@ function MoviesSection({ children }) {
   );
 }
 
-export default Movies;
+export default MoviesPage;

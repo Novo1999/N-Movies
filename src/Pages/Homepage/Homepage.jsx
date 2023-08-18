@@ -1,5 +1,16 @@
+import { Favorites, Search, TopRated, Movies, Series } from "../../Components";
 function Homepage() {
-  return <div></div>;
+  return (
+    <main className="bg-blue-950 h-[60rem] pl-5 pr-5 pb-5 overflow-hidden">
+      <Search />
+      <section className="grid grid-cols-5 h-4/5 gap-10">
+        <Movies />
+        <Series />
+        <TopRated />
+        <Favorites />
+      </section>
+    </main>
+  );
 }
 
 export default Homepage;
