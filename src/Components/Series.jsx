@@ -6,17 +6,18 @@ import { Link } from "react-router-dom";
 
 function Series() {
   const dispatch = useDispatch();
-  const { isSeriesLoading } = useSelector((state) => state.movie);
-  const { popularSeries } = useSelector((state) => state.movie);
+  const { isSeriesLoading, popularSeries, popularSeriesPage } = useSelector(
+    (state) => state.movie
+  );
 
   useEffect(() => {
-    dispatch(fetchSeries("trending", "week"));
-  }, [dispatch]);
+    dispatch(fetchSeries("trending", "week", popularSeriesPage));
+  }, [dispatch, popularSeriesPage]);
 
   return (
-    <section className="bg-rose-600 col-span-2 rounded-2xl relative overflow-hidden">
+    <section className="bg-rose-600 col-span-2 rounded-2xl relative overflow-hidden drop-shadow-xl shadow-xl">
       {isSeriesLoading ? (
-        <Spinner />
+        <Spinner bottomPosition="bottom-0" />
       ) : (
         <>
           <div className="flex justify-between ml-8 mr-6 h-10 relative top-4 items-center">

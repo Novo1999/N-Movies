@@ -6,22 +6,23 @@ import { Paginate, Search } from "../../Components";
 
 function SeriesPage() {
   const dispatch = useDispatch();
-  const { isSeriesLoading } = useSelector((state) => state.movie);
-  const { popularSeries } = useSelector((state) => state.movie);
+  const { isSeriesLoading, popularSeries, popularSeriesPage } = useSelector(
+    (state) => state.movie
+  );
 
   useEffect(() => {
-    dispatch(fetchSeries("trending", "week"));
-  }, [dispatch]);
+    dispatch(fetchSeries("trending", "week", popularSeriesPage));
+  }, [dispatch, popularSeriesPage]);
 
   return (
-    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-scroll overflow-x-hidden bg-slate-900">
+    <section className="col-span-4 row-span-2 relative movie-section overflow-hidden overflow-x-hidden bg-yellow-700 h-[98.5rem]">
       <img
-        className="absolute h-[180vh]"
+        className="absolute h-[140vh]"
         src="/images/series-bg.png"
         alt="series bg"
       />
       {isSeriesLoading ? (
-        <Spinner />
+        <Spinner bottomPosition="bottom-[40rem]" />
       ) : (
         <>
           <div className="flex justify-between ml-8 mr-6 h-10 relative top-4 items-center">
@@ -32,7 +33,7 @@ function SeriesPage() {
               <Search text="series" />
             </div>
           </div>
-          <div className="grid grid-cols-6 absolute right-0 left-2 mt-10 pb-10">
+          <div className="grid grid-cols-6 absolute right-0 left-2 mt-10 h-screen overflow-scroll p-20">
             {popularSeries?.map((item, i) => {
               return (
                 <div className="flex flex-col gap-4 items-center" key={i}>
@@ -42,13 +43,13 @@ function SeriesPage() {
                     src={item.poster_path}
                     alt="series"
                   />
-                  <p className="text-white font-semibold relative text-xs bottom-5 w-50 text-center">
+                  <p className="text-white font-semibold relative text-s bottom-5 w-50 text-center">
                     {item.name}
                   </p>
                 </div>
               );
             })}
-            <Paginate />
+            <Paginate pageOf={popularSeries} />
           </div>
         </>
       )}

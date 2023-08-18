@@ -1,8 +1,8 @@
 import "./Spinner.css";
 
-export function Spinner() {
+export function Spinner({ bottomPosition }) {
   return (
-    <div className="lds-ring">
+    <div className={`lds-ring ${bottomPosition} `}>
       <div></div>
       <div></div>
       <div></div>

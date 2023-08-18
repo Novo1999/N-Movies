@@ -28,7 +28,7 @@ export function fetchMovies(query, page) {
   };
 }
 
-export function fetchSeries(query, timeWindow) {
+export function fetchSeries(query, timeWindow, page) {
   return async function (dispatch) {
     const options = {
       method: "GET",
@@ -40,7 +40,7 @@ export function fetchSeries(query, timeWindow) {
     };
     dispatch(seriesLoading(true));
     const res = await fetch(
-      `https://api.themoviedb.org/3/${query}/tv/${timeWindow}?language=en-US`,
+      `https://api.themoviedb.org/3/${query}/tv/${timeWindow}?language=en-US&page=${page}`,
       options
     );
     const data = await res.json();

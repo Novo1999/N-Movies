@@ -11,18 +11,12 @@ export const movieSlice = createSlice({
     isSeriesLoading: false,
   },
   reducers: {
+    // Movies
     getPopularMovies: (state, action) => {
       state.popularMovies = action.payload.results;
       action.payload.results.map(
         (movie) =>
           (movie.poster_path = `https://image.tmdb.org/t/p/original${movie.poster_path}`)
-      );
-    },
-    getPopularSeries: (state, action) => {
-      state.popularSeries = action.payload.results;
-      action.payload.results.map(
-        (series) =>
-          (series.poster_path = `https://image.tmdb.org/t/p/original${series.poster_path}`)
       );
     },
     popularMoviesPage: (state, action) => {
@@ -31,13 +25,10 @@ export const movieSlice = createSlice({
     moviesLoading: (state, action) => {
       state.isMoviesLoading = action.payload;
     },
-    seriesLoading: (state, action) => {
-      state.isSeriesLoading = action.payload;
-    },
-    popularMoviesNextpage: (state, _) => {
+    popularMoviesNextPage: (state, _) => {
       state.popularMoviesPage += 1;
     },
-    popularMoviesPreviouspage: (state, _) => {
+    popularMoviesPreviousPage: (state, _) => {
       state.popularMoviesPage > 1
         ? (state.popularMoviesPage -= 1)
         : state.popularMoviesPage;
@@ -45,10 +36,25 @@ export const movieSlice = createSlice({
     popularMoviesSpecificPage: (state, action) => {
       state.popularMoviesPage = action.payload;
     },
-    popularSeriesNextpage: (state, _) => {
+
+    // Series
+    getPopularSeries: (state, action) => {
+      state.popularSeries = action.payload.results;
+      action.payload.results.map(
+        (series) =>
+          (series.poster_path = `https://image.tmdb.org/t/p/original${series.poster_path}`)
+      );
+    },
+    popularSeriesPage: (state, action) => {
+      state.page = action.payload;
+    },
+    seriesLoading: (state, action) => {
+      state.isSeriesLoading = action.payload;
+    },
+    popularSeriesNextPage: (state, _) => {
       state.popularSeriesPage += 1;
     },
-    popularSeriesPreviouspage: (state, _) => {
+    popularSeriesPreviousPage: (state, _) => {
       state.popularSeriesPage > 1
         ? (state.popularSeriesPage -= 1)
         : state.popularSeriesPage;
@@ -68,11 +74,11 @@ export const {
   popularSeriesPage,
   moviesLoading,
   seriesLoading,
-  popularMoviesNextpage,
-  popularMoviesPreviouspage,
+  popularMoviesNextPage,
+  popularMoviesPreviousPage,
   popularMoviesSpecificPage,
-  popularSeriesNextpage,
-  popularSeriesPreviouspage,
+  popularSeriesNextPage,
+  popularSeriesPreviousPage,
   popularSeriesSpecificPage,
 } = actions;
 

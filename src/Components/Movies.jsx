@@ -26,16 +26,15 @@ function MoviesSection({ children }) {
   }, [dispatch, popularMoviesPage]);
 
   return (
-    <section className="col-span-3 row-span-2 relative bg-sky-600 rounded-2xl overflow-hidden">
+    <section className="col-span-3 row-span-2 relative bg-sky-500 rounded-2xl overflow-hidden drop-shadow-xl shadow-xl">
       {isMoviesLoading ? (
-        <Spinner />
+        <Spinner bottomPosition="bottom-0" />
       ) : (
         <>
           <div className="overflow-hidden flex justify-between ml-8 mr-6 h-14 top-4 relative items-center">
             <h1 className="text-white text-xl text-center relative font-thin">
-              Movies - Popular
+              Movies - Popular Now
             </h1>
-            {children}
             <Link
               to="/movies"
               className="bg-blue-700 flex justify-center items-center pl-4 pr-4 rounded-3xl text-white h-12 hover:bg-black transition-all shadow-md"

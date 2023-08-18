@@ -8,44 +8,44 @@ import "./MoviesPage.css";
 import { Search } from "../../Components";
 
 function MoviesPage() {
+  const { popularMovies } = useSelector((state) => state.movie);
   return (
     <MoviesSection>
-      <Paginate />
+      <Paginate pageOf={popularMovies} />
     </MoviesSection>
   );
 }
 
 function MoviesSection({ children }) {
   const dispatch = useDispatch();
-  const { popularMoviesPage, isMoviesLoading } = useSelector(
+  const { popularMoviesPage, popularMovies, isMoviesLoading } = useSelector(
     (state) => state.movie
   );
-  const { popularMovies } = useSelector((state) => state.movie);
 
   useEffect(() => {
     dispatch(fetchMovies("popular", popularMoviesPage));
   }, [dispatch, popularMoviesPage]);
 
   return (
-    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-scroll overflow-x-hidden bg-slate-900">
+    <section className="col-span-3 row-span-2 relative h-[98.5rem] movie-section overflow-hidden overflow-x-hidden bg-slate-900">
       <img
         className="absolute h-[180vh] blur-sm"
         src="/images/movie-bg.jpg"
         alt="movie bg"
       />
       {isMoviesLoading ? (
-        <Spinner />
+        <Spinner bottomPosition="bottom-[40rem]" />
       ) : (
         <>
           <div className="flex ml-8 mr-6 h-14 top-4 relative items-center">
             <h1 className="text-white text-xl text-center relative font-thin">
-              Movies - Popular
+              Movies - Popular Now
             </h1>
             <div className="m-auto relative bottom-6">
               <Search text="movies" />
             </div>
           </div>
-          <div className="grid grid-cols-6 relative overflow-x-hidden overflow-scroll mt-4 p-4">
+          <div className="grid grid-cols-6 absolute right-0 left-2 mt-10 h-screen overflow-scroll p-20">
             {popularMovies?.map((movie, i) => {
               return (
                 <div
