@@ -6,6 +6,7 @@ export const movieSlice = createSlice({
     popularMovies: [],
     popularSeries: [],
     popularMoviesPage: 1,
+    popularSeriesPage: 1,
     isMoviesLoading: false,
     isSeriesLoading: false,
   },
@@ -44,15 +45,35 @@ export const movieSlice = createSlice({
     popularMoviesSpecificPage: (state, action) => {
       state.popularMoviesPage = action.payload;
     },
+    popularSeriesNextpage: (state, _) => {
+      state.popularSeriesPage += 1;
+    },
+    popularSeriesPreviouspage: (state, _) => {
+      state.popularSeriesPage > 1
+        ? (state.popularSeriesPage -= 1)
+        : state.popularSeriesPage;
+    },
+    popularSeriesSpecificPage: (state, action) => {
+      state.popularSeriesPage = action.payload;
+    },
   },
 });
 
 const { actions, reducer } = movieSlice;
 
 export const {
+  getPopularMovies,
+  getPopularSeries,
+  popularMoviesPage,
+  popularSeriesPage,
+  moviesLoading,
+  seriesLoading,
   popularMoviesNextpage,
   popularMoviesPreviouspage,
   popularMoviesSpecificPage,
+  popularSeriesNextpage,
+  popularSeriesPreviouspage,
+  popularSeriesSpecificPage,
 } = actions;
 
 export default reducer;

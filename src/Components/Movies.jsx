@@ -38,7 +38,7 @@ function MoviesSection({ children }) {
             {children}
             <Link
               to="/movies"
-              className="bg-blue-700 flex justify-center items-center pl-4 pr-4 rounded-3xl text-white h-12 hover:bg-black transition-all"
+              className="bg-blue-700 flex justify-center items-center pl-4 pr-4 rounded-3xl text-white h-12 hover:bg-black transition-all shadow-md"
             >
               See More &#10140;
             </Link>

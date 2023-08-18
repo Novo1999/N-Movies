@@ -1,9 +1,9 @@
-function Search() {
+function Search({ text }) {
   return (
     <section>
       <form className="text-white mx-auto flex justify-center flex-row items-center py-8">
         <label className="mr-4 mb-2" htmlFor="Search For Movies">
-          Search For Movies
+          Search For {text}
         </label>
         <input
           className="w-96 mb-2 h-8 rounded"

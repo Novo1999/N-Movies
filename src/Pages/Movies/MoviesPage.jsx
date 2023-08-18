@@ -27,7 +27,7 @@ function MoviesSection({ children }) {
   }, [dispatch, popularMoviesPage]);
 
   return (
-    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-scroll overflow-x-hidden">
+    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-scroll overflow-x-hidden bg-slate-900">
       <img
         className="absolute h-[180vh] blur-sm"
         src="/images/movie-bg.jpg"
@@ -42,7 +42,7 @@ function MoviesSection({ children }) {
               Movies - Popular
             </h1>
             <div className="m-auto relative bottom-6">
-              <Search />
+              <Search text="movies" />
             </div>
           </div>
           <div className="grid grid-cols-6 relative overflow-x-hidden overflow-scroll mt-4 p-4">

@@ -8,13 +8,13 @@ function SeriesPage() {
   const dispatch = useDispatch();
   const { isSeriesLoading } = useSelector((state) => state.movie);
   const { popularSeries } = useSelector((state) => state.movie);
-  // console.log(popularSeries);
+
   useEffect(() => {
     dispatch(fetchSeries("trending", "week"));
   }, [dispatch]);
 
   return (
-    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-scroll overflow-x-hidden">
+    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-scroll overflow-x-hidden bg-slate-900">
       <img
         className="absolute h-[180vh]"
         src="/images/series-bg.png"
@@ -29,7 +29,7 @@ function SeriesPage() {
               Series - Trending
             </h1>
             <div className="m-auto relative bottom-6">
-              <Search />
+              <Search text="series" />
             </div>
           </div>
           <div className="grid grid-cols-6 absolute right-0 left-2 mt-10 pb-10">

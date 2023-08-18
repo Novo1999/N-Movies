@@ -1,8 +1,14 @@
 import { Favorites, Search, TopRated, Movies, Series } from "../../Components";
+
 function Homepage() {
   return (
     <main className="bg-blue-950 h-[60rem] pl-5 pr-5 pb-5 overflow-hidden">
-      <Search />
+      <div>
+        <h1 className="absolute text-indigo-200 font-medium text-7xl">
+          📽 N-Movies
+        </h1>
+        <Search text="anything" />
+      </div>
       <section className="grid grid-cols-5 h-4/5 gap-10">
         <Movies />
         <Series />
