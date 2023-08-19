@@ -10,24 +10,24 @@ function SpecificMovie() {
 
   const {
     id,
-    title,
+    name,
     backdrop_path,
     poster_path,
-    release_date,
+    number_of_episodes,
     overview,
     popularity,
     vote_average,
     homepage,
-    budget,
-    revenue,
-    runtime,
     genres,
     production_companies,
     production_countries,
     spoken_languages,
-    status,
+    last_air_date,
+    number_of_seasons,
+    networks,
   } = currentContent;
 
+  console.log(currentContent);
   return (
     <section className="relative h-screen overflow-auto bg-slate-700">
       {isMoviesLoading || isSeriesLoading ? (
@@ -47,9 +47,14 @@ function SpecificMovie() {
                 alt="movie"
               />
               <div className="w-[60%] h-[30%] mt-40 flex flex-col gap-4 bg-gray-900/20 p-10">
-                <h1 className="text-5xl mt-4 mb-4">{title}</h1>
-                <p className="font-bold">{status}</p>
-                <h3 className="text-lg">Release Date: {release_date}</h3>
+                <h1 className="text-5xl mt-4 mb-4">{name}</h1>
+                <p className="font-thin">
+                  Last episode Aired on: {last_air_date}
+                </p>
+                <h3 className="text-lg">Seasons: {number_of_seasons}</h3>
+                <h3 className="text-lg">
+                  Number of Episodes: {number_of_episodes}
+                </h3>
                 <p className="text-xl mb-4">{overview}</p>
                 <p className="text-xl">Popularity : {popularity}</p>
                 <p className="text-lg">Average Rating : {vote_average}</p>
@@ -107,18 +112,29 @@ function SpecificMovie() {
                 <p className="text-white font-bold text-lg">
                   Production Countries:
                 </p>
-                {production_countries.map((country, i) => {
+                {production_countries.map((country) => {
                   return (
-                    <p className="border-2 p-3 rounded-md" key={i}>
+                    <p className="border-2 p-3 rounded-md" key={country.name}>
                       {country.name}
                     </p>
                   );
                 })}
               </div>
               <div>
-                <p>Budget: {`${budget / ONE_MILLION}M`}</p>
-                <p>Revenue: {`${revenue / ONE_MILLION}M`}</p>
-                <p>{`${Math.floor(runtime / 60)}hr ${runtime % 60}m`}</p>
+                {networks.map((network) => {
+                  return (
+                    <div className="flex items-center gap-3" key={network.name}>
+                      <p className="font-bold">Available on: </p>
+                      <img
+                        src={`https://image.tmdb.org/t/p/original${network.logo_path}`}
+                        className="h-16 p-3 rounded-md"
+                      ></img>
+                    </div>
+                  );
+                })}
+                <p>{}</p>
+                <p>{}</p>
+                <p>{}</p>
               </div>
             </div>
           </div>

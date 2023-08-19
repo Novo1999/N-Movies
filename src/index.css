@@ -28,5 +28,5 @@ main {
 
 .hide-scrollbar ::-webkit-scrollbar,
 ::-webkit-scrollbar-thumb {
-  display: none;
+  /* display: none; */
 }

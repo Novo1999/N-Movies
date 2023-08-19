@@ -10,6 +10,7 @@ import Paginate from "../../Components/Paginate";
 import "./MoviesPage.css";
 import { Search } from "../../Components";
 import { Link } from "react-router-dom";
+import { setCurrentParam } from "../../features/movies/movieSlice";
 
 function MoviesPage() {
   const { popularMovies } = useSelector((state) => state.movie);
@@ -67,7 +68,10 @@ function Button({ children }) {
                 >
                   <Link
                     to={`movie/${movie.id}`}
-                    onClick={() => dispatch(fetchSpecificMovie(movie.id))}
+                    onClick={() => {
+                      dispatch(setCurrentParam(movie.id));
+                      dispatch(fetchSpecificMovie(movie.id));
+                    }}
                   >
                     <img
                       className=" w-56 h-80 mb-8 rounded"

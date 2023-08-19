@@ -10,7 +10,7 @@ import {
 
 import MoviesPage from "./Pages/Movies/MoviesPage";
 import Homepage from "./Pages/Homepage/Homepage";
-import { ErrorPage, SeriesPage, SpecificMovie } from "./Pages";
+import { ErrorPage, SeriesPage, SpecificMovie, SpecificSeries } from "./Pages";
 import { Spinner } from "./Components";
 
 const router = createBrowserRouter([
@@ -23,18 +23,22 @@ const router = createBrowserRouter([
   {
     path: "movies",
     element: <MoviesPage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "tv-series",
     element: <SeriesPage />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "movies/movie/:id",
     element: <SpecificMovie />,
+    errorElement: <ErrorPage />,
   },
   {
     path: "tv-series/series/:id",
-    element: <SpecificMovie />,
+    element: <SpecificSeries />,
+    errorElement: <ErrorPage />,
   },
 ]);
 

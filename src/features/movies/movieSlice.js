@@ -90,6 +90,7 @@ export const {
   popularSeriesSpecificPage,
   setCurrentID,
   setCurrentContent,
+  setCurrentParam,
 } = actions;
 
 export default reducer;
