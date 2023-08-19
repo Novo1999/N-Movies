@@ -69,7 +69,6 @@ function Button({ children }) {
                   <Link
                     to={`movie/${movie.id}`}
                     onClick={() => {
-                      dispatch(setCurrentParam(movie.id));
                       dispatch(fetchSpecificMovie(movie.id));
                     }}
                   >

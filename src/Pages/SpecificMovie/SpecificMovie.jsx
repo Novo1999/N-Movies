@@ -1,5 +1,8 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../../Components";
+import { useParams } from "react-router";
+import { useEffect } from "react";
+import { fetchSpecificMovie } from "../../features/movies/moviesActions";
 
 const ONE_MILLION = 1000000;
 
@@ -7,6 +10,12 @@ function SpecificMovie() {
   const { currentContent, isMoviesLoading, isSeriesLoading } = useSelector(
     (state) => state.movie
   );
+  const dispatch = useDispatch();
+  const { id: movieId } = useParams();
+
+  useEffect(() => {
+    dispatch(fetchSpecificMovie(movieId));
+  }, [movieId, dispatch]);
 
   const {
     id,
@@ -54,11 +63,14 @@ function SpecificMovie() {
                 <p className="text-xl">Popularity : {popularity}</p>
                 <p className="text-lg">Average Rating : {vote_average}</p>
 
-                <div className="flex gap-4">
+                <div className="flex items-center gap-4">
                   <p className="text-lg">Languages: </p>
                   {spoken_languages?.map((language) => {
                     return (
-                      <p key={language.english_name} className="text-lg">
+                      <p
+                        key={language.english_name}
+                        className="text-lg border-2 p-1 rounded-md"
+                      >
                         {language.english_name}
                       </p>
                     );
@@ -78,7 +90,7 @@ function SpecificMovie() {
               {/* Genre */}
               <div className="flex gap-3 items-center mb-10">
                 <p>Genre: </p>
-                {genres.map((genre) => (
+                {genres?.map((genre) => (
                   <p className="border-2 w-fit p-2 rounded-md" key={genre.name}>
                     {genre.name}
                   </p>
@@ -89,11 +101,12 @@ function SpecificMovie() {
                 <p className="text-white font-bold text-lg">
                   Production Companies:
                 </p>
-                {production_companies.map((company) => {
+                {production_companies?.map((company, i) => {
                   {
                     return company.logo_path ? (
                       <img
-                        className="h-16"
+                        key={i}
+                        className="h-12"
                         src={`https://image.tmdb.org/t/p/original${company.logo_path}`}
                         alt="logo"
                       />
@@ -107,7 +120,7 @@ function SpecificMovie() {
                 <p className="text-white font-bold text-lg">
                   Production Countries:
                 </p>
-                {production_countries.map((country, i) => {
+                {production_countries?.map((country, i) => {
                   return (
                     <p className="border-2 p-3 rounded-md" key={i}>
                       {country.name}
@@ -117,8 +130,10 @@ function SpecificMovie() {
               </div>
               <div>
                 <p>Budget: {`${budget / ONE_MILLION}M`}</p>
-                <p>Revenue: {`${revenue / ONE_MILLION}M`}</p>
-                <p>{`${Math.floor(runtime / 60)}hr ${runtime % 60}m`}</p>
+                <p>Revenue: {`${(revenue / ONE_MILLION).toFixed(2)}M`}</p>
+                <p>
+                  Duration: {`${Math.floor(runtime / 60)}hr ${runtime % 60}m`}
+                </p>
               </div>
             </div>
           </div>

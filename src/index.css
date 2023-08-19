@@ -26,7 +26,10 @@ main {
   background: linear-gradient(to left, #240b36, #c31432);
 }
 
-.hide-scrollbar ::-webkit-scrollbar,
-::-webkit-scrollbar-thumb {
-  /* display: none; */
+.hide-scrollbar::-webkit-scrollbar {
+  width: 0.5em;
+}
+
+.hide-scrollbar::-webkit-scrollbar-thumb {
+  display: none;
 }

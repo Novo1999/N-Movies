@@ -8,7 +8,6 @@ import {
 import Spinner from "./Spinner/Spinner";
 import Paginate from "./Paginate";
 import { Link } from "react-router-dom";
-import { setCurrentID } from "../features/movies/movieSlice";
 
 function Movies() {
   return (

@@ -1,5 +1,8 @@
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../../Components";
+import { useEffect } from "react";
+import { fetchSpecificSeries } from "../../features/movies/moviesActions";
+import { useParams } from "react-router";
 
 const ONE_MILLION = 1000000;
 
@@ -7,6 +10,14 @@ function SpecificMovie() {
   const { currentContent, isMoviesLoading, isSeriesLoading } = useSelector(
     (state) => state.movie
   );
+
+  const dispatch = useDispatch();
+  const { id: seriesId } = useParams();
+  console.log(seriesId);
+
+  useEffect(() => {
+    dispatch(fetchSpecificSeries(seriesId));
+  }, [seriesId, dispatch]);
 
   const {
     id,
@@ -25,6 +36,7 @@ function SpecificMovie() {
     last_air_date,
     number_of_seasons,
     networks,
+    episode_run_time,
   } = currentContent;
 
   console.log(currentContent);
@@ -59,11 +71,14 @@ function SpecificMovie() {
                 <p className="text-xl">Popularity : {popularity}</p>
                 <p className="text-lg">Average Rating : {vote_average}</p>
 
-                <div className="flex gap-4">
+                <div className="flex gap-4 items-center">
                   <p className="text-lg">Languages: </p>
                   {spoken_languages?.map((language) => {
                     return (
-                      <p key={language.english_name} className="text-lg">
+                      <p
+                        key={language.english_name}
+                        className="text-lg border-2 p-1 rounded-md"
+                      >
                         {language.english_name}
                       </p>
                     );
@@ -83,7 +98,7 @@ function SpecificMovie() {
               {/* Genre */}
               <div className="flex gap-3 items-center mb-10">
                 <p>Genre: </p>
-                {genres.map((genre) => (
+                {genres?.map((genre) => (
                   <p className="border-2 w-fit p-2 rounded-md" key={genre.name}>
                     {genre.name}
                   </p>
@@ -94,11 +109,12 @@ function SpecificMovie() {
                 <p className="text-white font-bold text-lg">
                   Production Companies:
                 </p>
-                {production_companies.map((company) => {
+                {production_companies?.map((company, i) => {
                   {
                     return company.logo_path ? (
                       <img
-                        className="h-16"
+                        key={i}
+                        className="h-8"
                         src={`https://image.tmdb.org/t/p/original${company.logo_path}`}
                         alt="logo"
                       />
@@ -112,7 +128,7 @@ function SpecificMovie() {
                 <p className="text-white font-bold text-lg">
                   Production Countries:
                 </p>
-                {production_countries.map((country) => {
+                {production_countries?.map((country) => {
                   return (
                     <p className="border-2 p-3 rounded-md" key={country.name}>
                       {country.name}
@@ -120,22 +136,28 @@ function SpecificMovie() {
                   );
                 })}
               </div>
-              <div>
-                {networks.map((network) => {
+              <div className="flex items-center gap-4">
+                <p className="font-bold">Available on: </p>
+                {networks?.map((network) => {
                   return (
                     <div className="flex items-center gap-3" key={network.name}>
-                      <p className="font-bold">Available on: </p>
                       <img
                         src={`https://image.tmdb.org/t/p/original${network.logo_path}`}
-                        className="h-16 p-3 rounded-md"
+                        className="h-12 p-3 rounded-md"
                       ></img>
                     </div>
                   );
                 })}
                 <p>{}</p>
                 <p>{}</p>
-                <p>{}</p>
               </div>
+              {episode_run_time?.map((item, i) => {
+                return (
+                  <p className="mt-4" key={i}>
+                    Episode Run Time: {item}
+                  </p>
+                );
+              })}
             </div>
           </div>
         </>
