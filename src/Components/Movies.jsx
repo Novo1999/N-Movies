@@ -1,10 +1,14 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchMovies } from "../features/movies/moviesActions";
+import {
+  fetchMovies,
+  fetchSpecificMovie,
+} from "../features/movies/moviesActions";
 
 import Spinner from "./Spinner/Spinner";
 import Paginate from "./Paginate";
 import { Link } from "react-router-dom";
+import { setCurrentID } from "../features/movies/movieSlice";
 
 function Movies() {
   return (
@@ -28,7 +32,7 @@ function MoviesSection({ children }) {
   return (
     <section className="col-span-3 row-span-2 relative bg-sky-500 rounded-2xl overflow-hidden drop-shadow-xl shadow-xl">
       {isMoviesLoading ? (
-        <Spinner bottomPosition="bottom-0" />
+        <Spinner bottomposition="bottom-0" />
       ) : (
         <>
           <div className="overflow-hidden flex justify-between ml-8 mr-6 h-14 top-4 relative items-center">
@@ -45,12 +49,17 @@ function MoviesSection({ children }) {
           <div className="grid grid-cols-5 left-3 top-2 relative overflow-auto mt-4 p-4 pb-28 h-[48rem]">
             {popularMovies?.map((movie, i) => {
               return (
-                <div className="flex flex-col items-center pr-5 mt-4 " key={i}>
-                  <img
-                    className=" w-44 h-64 mb-8 rounded"
-                    src={movie.poster_path}
-                    alt="poster"
-                  />
+                <div className="flex flex-col items-center pr-5 mt-4" key={i}>
+                  <Link
+                    to={`movies/movie/${movie.id}`}
+                    onClick={() => dispatch(fetchSpecificMovie(movie.id))}
+                  >
+                    <img
+                      className=" w-44 h-64 mb-8 rounded"
+                      src={movie.poster_path}
+                      alt="poster"
+                    />
+                  </Link>
                   <p className="text-white font-semibold relative bottom-5 text-s w-50 text-center ">
                     {movie.title}
                   </p>

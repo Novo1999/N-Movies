@@ -16,10 +16,17 @@
 }
 
 body {
+  font-family: "Poppins", sans-serif;
   overflow: hidden;
 }
+
 main {
   background: #c31432;
   background: -webkit-linear-gradient(to left, #240b36, #c31432);
   background: linear-gradient(to left, #240b36, #c31432);
+}
+
+.hide-scrollbar ::-webkit-scrollbar,
+::-webkit-scrollbar-thumb {
+  display: none;
 }

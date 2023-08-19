@@ -21,8 +21,6 @@ function Paginate({ pageOf }) {
     setCurrentBtn(+e.target.value);
   }
 
-  console.log(currentBtn);
-  console.log(determinePageButtonValue(1));
   function determinePreviousButtonVisibility() {
     if (pageOf === popularSeries) {
       if (popularSeriesPage === 1) {

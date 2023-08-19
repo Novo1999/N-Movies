@@ -2,7 +2,7 @@ import { Favorites, Search, TopRated, Movies, Series } from "../../Components";
 
 function Homepage() {
   return (
-    <main className="bg-blue-950 h-[60rem] pl-5 pr-5 pb-5 overflow-hidden">
+    <main className="bg-blue-950 h-[60rem] pl-5 pr-5 pb-5">
       <div className="flex items-center justify-center">
         <h1 className="relative text-indigo-200 font-medium text-6xl w-[100%] h-20">
           📽 N-Movies

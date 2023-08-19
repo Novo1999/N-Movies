@@ -2,11 +2,11 @@ function Search({ text }) {
   return (
     <section>
       <form className="text-white mx-auto flex justify-center flex-row items-center py-8">
-        <label className="mr-4 mb-2 w-36" htmlFor="Search For Movies">
+        <label className="mr-4 mb-2 w-48" htmlFor="Search For Movies">
           Search For {text}
         </label>
         <input
-          className="w-96 mb-2 h-8 rounded"
+          className="w-96 mb-2 h-8 rounded text-black pl-2 font-semibold"
           type="text"
           id="search"
           name="search"

@@ -4,6 +4,7 @@ import {
   moviesLoading,
   popularMoviesPage,
   seriesLoading,
+  setCurrentContent,
 } from "./movieSlice";
 
 export function fetchMovies(query, page) {
@@ -22,8 +23,8 @@ export function fetchMovies(query, page) {
       options
     );
     const data = await res.json();
-    dispatch(moviesLoading(false));
     dispatch(getPopularMovies(data));
+    dispatch(moviesLoading(false));
     dispatch(popularMoviesPage(data.page));
   };
 }
@@ -46,5 +47,47 @@ export function fetchSeries(query, timeWindow, page) {
     const data = await res.json();
     dispatch(seriesLoading(false));
     dispatch(getPopularSeries(data));
+  };
+}
+
+export function fetchSpecificMovie(id) {
+  return async function (dispatch) {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNGUxYzkwZTM2ODA0OTBiNWYxOWIwZDZmMWRiNjljZSIsInN1YiI6IjY0ZGNhYjI3MDAxYmJkMDQxYWYzYzMxMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UsYP_fdC5O1-eBJtoo4_lAf0xYDkX3Bhlk64cHo0bxk",
+      },
+    };
+    dispatch(moviesLoading(true));
+    const res = await fetch(
+      `https://api.themoviedb.org/3/movie/${id}?language=en-US`,
+      options
+    );
+    const data = await res.json();
+    dispatch(moviesLoading(false));
+    dispatch(setCurrentContent(data));
+  };
+}
+
+export function fetchSpecificSeries(id) {
+  return async function (dispatch) {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNGUxYzkwZTM2ODA0OTBiNWYxOWIwZDZmMWRiNjljZSIsInN1YiI6IjY0ZGNhYjI3MDAxYmJkMDQxYWYzYzMxMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UsYP_fdC5O1-eBJtoo4_lAf0xYDkX3Bhlk64cHo0bxk",
+      },
+    };
+    dispatch(seriesLoading(true));
+    const res = await fetch(
+      `https://api.themoviedb.org/3/tv/${id}?language=en-US`,
+      options
+    );
+    const data = await res.json();
+    dispatch(seriesLoading(false));
+    dispatch(setCurrentContent(data));
   };
 }

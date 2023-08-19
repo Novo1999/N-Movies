@@ -9,15 +9,16 @@ export const movieSlice = createSlice({
     popularSeriesPage: 1,
     isMoviesLoading: false,
     isSeriesLoading: false,
+    currentContent: [],
   },
   reducers: {
     // Movies
     getPopularMovies: (state, action) => {
       state.popularMovies = action.payload.results;
-      action.payload.results.map(
-        (movie) =>
-          (movie.poster_path = `https://image.tmdb.org/t/p/original${movie.poster_path}`)
-      );
+      action.payload.results.map((movie) => {
+        movie.poster_path = `https://image.tmdb.org/t/p/original${movie.poster_path}`;
+        movie.backdrop_path = `https://image.tmdb.org/t/p/original${movie.backdrop_path}`;
+      });
     },
     popularMoviesPage: (state, action) => {
       state.page = action.payload;
@@ -40,10 +41,10 @@ export const movieSlice = createSlice({
     // Series
     getPopularSeries: (state, action) => {
       state.popularSeries = action.payload.results;
-      action.payload.results.map(
-        (series) =>
-          (series.poster_path = `https://image.tmdb.org/t/p/original${series.poster_path}`)
-      );
+      action.payload.results.map((series) => {
+        series.poster_path = `https://image.tmdb.org/t/p/original${series.poster_path}`;
+        series.backdrop_path = `https://image.tmdb.org/t/p/original${series.backdrop_path}`;
+      });
     },
     popularSeriesPage: (state, action) => {
       state.page = action.payload;
@@ -61,6 +62,13 @@ export const movieSlice = createSlice({
     },
     popularSeriesSpecificPage: (state, action) => {
       state.popularSeriesPage = action.payload;
+    },
+
+    // ID
+    setCurrentContent: (state, action) => {
+      action.payload.poster_path = `https://image.tmdb.org/t/p/original${action.payload.poster_path}`;
+      action.payload.backdrop_path = `https://image.tmdb.org/t/p/original${action.payload.backdrop_path}`;
+      state.currentContent = action.payload;
     },
   },
 });
@@ -80,6 +88,8 @@ export const {
   popularSeriesNextPage,
   popularSeriesPreviousPage,
   popularSeriesSpecificPage,
+  setCurrentID,
+  setCurrentContent,
 } = actions;
 
 export default reducer;

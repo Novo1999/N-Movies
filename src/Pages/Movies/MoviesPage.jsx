@@ -1,11 +1,15 @@
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchMovies } from "../../features/movies/moviesActions";
+import {
+  fetchMovies,
+  fetchSpecificMovie,
+} from "../../features/movies/moviesActions";
 
 import Spinner from "../../Components/Spinner/Spinner";
 import Paginate from "../../Components/Paginate";
 import "./MoviesPage.css";
 import { Search } from "../../Components";
+import { Link } from "react-router-dom";
 
 function MoviesPage() {
   const { popularMovies } = useSelector((state) => state.movie);
@@ -18,23 +22,32 @@ function MoviesPage() {
 
 function MoviesSection({ children }) {
   const dispatch = useDispatch();
-  const { popularMoviesPage, popularMovies, isMoviesLoading } = useSelector(
-    (state) => state.movie
-  );
+  const { popularMoviesPage } = useSelector((state) => state.movie);
 
   useEffect(() => {
     dispatch(fetchMovies("popular", popularMoviesPage));
   }, [dispatch, popularMoviesPage]);
 
+  return <Button>{children}</Button>;
+}
+
+export default MoviesPage;
+
+function Button({ children }) {
+  const dispatch = useDispatch();
+  const { popularMovies, isMoviesLoading } = useSelector(
+    (state) => state.movie
+  );
+
   return (
-    <section className="col-span-3 row-span-2 relative h-[98.5rem] movie-section overflow-hidden overflow-x-hidden bg-slate-900">
+    <section className="col-span-3 row-span-2 relative h-[112.5rem] movie-section overflow-hidden overflow-x-hidden bg-slate-900">
       <img
         className="absolute h-[180vh] blur-sm"
         src="/images/movie-bg.jpg"
         alt="movie bg"
       />
       {isMoviesLoading ? (
-        <Spinner bottomPosition="bottom-[40rem]" />
+        <Spinner bottomposition="bottom-[50rem]" />
       ) : (
         <>
           <div className="flex ml-8 mr-6 h-14 top-4 relative items-center">
@@ -45,18 +58,23 @@ function MoviesSection({ children }) {
               <Search text="movies" />
             </div>
           </div>
-          <div className="grid grid-cols-6 absolute right-0 left-2 mt-10 h-screen overflow-scroll p-20">
+          <div className="grid grid-cols-6 absolute right-0 left-2 mt-10 h-screen p-20 overflow-scroll">
             {popularMovies?.map((movie, i) => {
               return (
                 <div
                   className="flex flex-col items-center justify-center"
                   key={i}
                 >
-                  <img
-                    className="w-56 h-80 mb-8 rounded"
-                    src={movie.poster_path}
-                    alt="poster"
-                  />
+                  <Link
+                    to={`movie/${movie.id}`}
+                    onClick={() => dispatch(fetchSpecificMovie(movie.id))}
+                  >
+                    <img
+                      className=" w-56 h-80 mb-8 rounded"
+                      src={movie.poster_path}
+                      alt="poster"
+                    />
+                  </Link>
                   <p className="text-white font-semibold relative bottom-5 text-s w-50 text-center ">
                     {movie.title}
                   </p>
@@ -70,5 +88,3 @@ function MoviesSection({ children }) {
     </section>
   );
 }
-
-export default MoviesPage;

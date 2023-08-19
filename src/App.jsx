@@ -1,22 +1,50 @@
-import { Provider } from "react-redux";
+import { Provider, useSelector } from "react-redux";
 import { store } from "./Store/store";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  Route,
+  RouterProvider,
+  Routes,
+  createBrowserRouter,
+} from "react-router-dom";
 
 import MoviesPage from "./Pages/Movies/MoviesPage";
 import Homepage from "./Pages/Homepage/Homepage";
-import { SeriesPage } from "./Pages";
+import { ErrorPage, SeriesPage, SpecificMovie } from "./Pages";
+import { Spinner } from "./Components";
+
+const router = createBrowserRouter([
+  {
+    index: true,
+    path: "/",
+    element: <Homepage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "movies",
+    element: <MoviesPage />,
+  },
+  {
+    path: "tv-series",
+    element: <SeriesPage />,
+  },
+  {
+    path: "movies/movie/:id",
+    element: <SpecificMovie />,
+  },
+  {
+    path: "tv-series/series/:id",
+    element: <SpecificMovie />,
+  },
+]);
 
 function App() {
   return (
-    <Provider store={store}>
-      <BrowserRouter>
-        <Routes>
-          <Route index element={<Homepage />} />
-          <Route path="movies" element={<MoviesPage />} />
-          <Route path="series" element={<SeriesPage />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <div className="overflow-hidden">
+      <Provider store={store}>
+        <RouterProvider router={router} fallbackElement={<Spinner />} />
+      </Provider>
+    </div>
   );
 }
 

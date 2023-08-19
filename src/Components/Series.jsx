@@ -1,15 +1,18 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchSeries } from "../features/movies/moviesActions";
+import {
+  fetchSeries,
+  fetchSpecificSeries,
+} from "../features/movies/moviesActions";
 import Spinner from "./Spinner/Spinner";
 import { Link } from "react-router-dom";
+import { setCurrentID } from "../features/movies/movieSlice";
 
 function Series() {
   const dispatch = useDispatch();
   const { isSeriesLoading, popularSeries, popularSeriesPage } = useSelector(
     (state) => state.movie
   );
-
   useEffect(() => {
     dispatch(fetchSeries("trending", "week", popularSeriesPage));
   }, [dispatch, popularSeriesPage]);
@@ -17,7 +20,7 @@ function Series() {
   return (
     <section className="bg-rose-600 col-span-2 rounded-2xl relative overflow-hidden drop-shadow-xl shadow-xl">
       {isSeriesLoading ? (
-        <Spinner bottomPosition="bottom-0" />
+        <Spinner bottomposition="bottom-0" />
       ) : (
         <>
           <div className="flex justify-between ml-8 mr-6 h-10 relative top-4 items-center">
@@ -26,24 +29,30 @@ function Series() {
             </h1>
 
             <Link
-              to="/series"
+              to="/tv-series"
               className="bg-blue-700 flex justify-center items-center pl-4 pr-4 rounded-3xl text-white h-8 hover:bg-black transition-all shadow-md"
             >
               See More &#10140;
             </Link>
           </div>
-          <div className="grid grid-cols-4 absolute right-0 left-2 mt-8 h-[20rem] overflow-auto pb-10">
-            {popularSeries?.map((item, i) => {
+          <div className="grid grid-cols-4 absolute right-0 left-2 mt-8 h-[20rem] overflow-auto hide-scrollbar pb-10">
+            {popularSeries?.map((series, i) => {
               return (
                 <div className="flex flex-col gap-4 items-center" key={i}>
-                  <img
-                    className="p-2 w-36 h-52 rounded-xl"
-                    key={i}
-                    src={item.poster_path}
-                    alt="series"
-                  />
+                  <Link
+                    to={`tv-series/series/${series.id}`}
+                    onClick={() => dispatch(fetchSpecificSeries(series.id))}
+                  >
+                    <img
+                      className="p-2 w-36 h-52 rounded-xl"
+                      key={i}
+                      src={series.poster_path}
+                      alt="series"
+                    />
+                  </Link>
+
                   <p className="text-white font-semibold relative text-xs bottom-5 w-50 text-center">
-                    {item.name}
+                    {series.name}
                   </p>
                 </div>
               );
