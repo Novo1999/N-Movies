@@ -25,7 +25,9 @@ function MoviesSection({ children }) {
   const { popularMoviesPage } = useSelector((state) => state.movie);
 
   const location = useLocation();
-  console.log(+location.search.split("=").filter((item) => +item));
+  // useEffect(() => {
+  //   console.log(+location.search.split("=").filter((item) => +item));
+  // }, [location.search]);
 
   useEffect(() => {
     dispatch(fetchMovies("popular", popularMoviesPage));
@@ -69,7 +71,7 @@ function Button({ children }) {
                   key={i}
                 >
                   <Link
-                    to={`movie/${movie.id}`}
+                    to={`/movies/movie/${movie.id}`}
                     onClick={() => {
                       dispatch(fetchSpecificMovie(movie.id));
                     }}

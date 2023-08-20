@@ -38,7 +38,7 @@ const MoviesSection = memo(function MoviesSection() {
               Movies - Popular Now
             </h1>
             <Link
-              to={`/movies`}
+              to={`movies/page-${popularMoviesPage}`}
               className="bg-blue-700 flex justify-center items-center pl-4 pr-4 rounded-3xl text-white h-12 hover:bg-black transition-all shadow-md"
             >
               See More &#10140;

@@ -49,7 +49,7 @@ function SpecificMovie() {
               src={backdrop_path}
               alt="movie"
             />
-            <div className="flex justify-evenly m-auto relative z-1 text-white drop-shadow ">
+            <div className="flex justify-evenly m-auto relative z-1 text-white drop-shadow mb-10">
               <img
                 className="w-[30%] h-[30%] mt-8"
                 src={poster_path}

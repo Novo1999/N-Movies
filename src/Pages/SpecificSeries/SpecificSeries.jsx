@@ -52,13 +52,13 @@ function SpecificMovie() {
               src={backdrop_path}
               alt="movie"
             />
-            <div className="flex justify-evenly m-auto relative z-1 text-white drop-shadow ">
+            <div className="flex justify-evenly m-auto relative z-1 text-white drop-shadow mb-10">
               <img
                 className="w-[30%] h-[30%] mt-8"
                 src={poster_path}
                 alt="movie"
               />
-              <div className="w-[60%] h-[30%] mt-40 flex flex-col gap-4 bg-gray-900/20 p-10">
+              <div className="w-[60%] h-[30%] flex flex-col gap-4 bg-gray-900/20  p-10">
                 <h1 className="text-5xl mt-4 mb-4">{name}</h1>
                 <p className="font-thin">
                   Last episode Aired on: {last_air_date}
@@ -136,14 +136,14 @@ function SpecificMovie() {
                   );
                 })}
               </div>
-              <div className="flex items-center gap-4">
-                <p className="font-bold">Available on: </p>
+              <div className="flex items-center gap-4 mt-5 mb-5">
+                <p className="font-bold ">Available on: </p>
                 {networks?.map((network) => {
                   return (
                     <div className="flex items-center gap-3" key={network.name}>
                       <img
                         src={`https://image.tmdb.org/t/p/original${network.logo_path}`}
-                        className="h-12 p-3 rounded-md"
+                        className="h-8"
                       ></img>
                     </div>
                   );
@@ -154,7 +154,7 @@ function SpecificMovie() {
               {episode_run_time?.map((item, i) => {
                 return (
                   <p className="mt-4" key={i}>
-                    Episode Run Time: {item}
+                    Episode Run Time: {item}m
                   </p>
                 );
               })}

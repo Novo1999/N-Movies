@@ -3,6 +3,7 @@ import {
   getPopularSeries,
   moviesLoading,
   popularMoviesPage,
+  searchSuggestionsLoading,
   seriesLoading,
   setCurrentContent,
   setSearchSuggestions,
@@ -104,12 +105,14 @@ export function fetchContentBySearch(keyword) {
       },
     };
 
+    dispatch(searchSuggestionsLoading(true));
     const res = await fetch(
       `https://api.themoviedb.org/3/search/multi?query=${keyword}&include_adult=false&language=en-US&page=1`,
       options
     );
     const data = await res.json();
-    console.log(data);
+    // console.log(data);
+    dispatch(searchSuggestionsLoading(false));
     dispatch(setSearchSuggestions(data));
   };
 }

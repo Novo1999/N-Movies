@@ -9,6 +9,7 @@ export const movieSlice = createSlice({
     popularSeriesPage: 1,
     isMoviesLoading: false,
     isSeriesLoading: false,
+    isSearchSuggestionLoading: false,
     currentContent: [],
     searchSuggestions: [],
   },
@@ -76,6 +77,9 @@ export const movieSlice = createSlice({
     setSearchSuggestions: (state, action) => {
       state.searchSuggestions = action.payload.results;
     },
+    searchSuggestionsLoading: (state, action) => {
+      state.isSearchSuggestionLoading = action.payload;
+    },
   },
 });
 
@@ -97,6 +101,7 @@ export const {
   setCurrentID,
   setCurrentContent,
   setSearchSuggestions,
+  searchSuggestionsLoading,
 } = actions;
 
 export default reducer;

@@ -8,31 +8,19 @@ import {
   popularSeriesPreviousPage,
   popularSeriesSpecificPage,
 } from "../features/movies/movieSlice";
-import { useSearchParams } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function Paginate({ pageOf }) {
   const dispatch = useDispatch();
   const { popularMovies, popularMoviesPage, popularSeriesPage, popularSeries } =
     useSelector((state) => state.movie);
   const [currentBtn, setCurrentBtn] = useState(null);
-  const [search, setSearch] = useSearchParams();
 
   const buttonCommonStyles = `rounded-3xl bg-indigo-200 border-2 border-none p-1 hover:text-white transition-all font-semibold shadow-md`;
 
   function handleCurrentButton(e) {
     setCurrentBtn(+e.target.value);
   }
-
-  const handlePageURL = useCallback(() => {
-    function handlePageURL() {
-      setSearch({ page: popularMoviesPage });
-    }
-    handlePageURL();
-  }, [popularMoviesPage, setSearch]);
-
-  useEffect(() => {
-    handlePageURL();
-  }, [search, handlePageURL]);
 
   function determinePreviousButtonVisibility() {
     if (pageOf === popularSeries) {
@@ -82,8 +70,8 @@ function Paginate({ pageOf }) {
     "
     >
       <div className="flex justify-center items-center gap-3">
-        <button
-          to={`?page=${search.get("page")}`}
+        <Link
+          to={`/movies/page-${popularMoviesPage}`}
           className={`${buttonCommonStyles} rounded-3xl border-2 border-none bg-indigo-400 p-1 pr-1 pl-2 ${determinePreviousButtonVisibility()}`}
           onClick={
             pageOf === popularMovies
@@ -92,7 +80,7 @@ function Paginate({ pageOf }) {
           }
         >
           &#10229;
-        </button>
+        </Link>
         <div
           onClick={(e) => {
             if (!e.target.value) return;
@@ -103,33 +91,38 @@ function Paginate({ pageOf }) {
           }}
           className="flex gap-4"
         >
-          <button
+          <Link
+            to={`/movies/page-${determinePageButtonValue(1)}`}
             value={determinePageButtonValue(1)}
             className={`p-1 pr-[0.8rem] pl-[0.8rem]  ${buttonCommonStyles}`}
           >
             {determinePageButtonValue(1)}
-          </button>
-          <button
+          </Link>
+          <Link
+            to={`/movies/page-${determinePageButtonValue(null, 1)}`}
             value={determinePageButtonValue(null, 1)}
             className={`p-1 pr-3 pl-3 ${buttonCommonStyles}`}
           >
             {determinePageButtonValue(null, 1)}
-          </button>
-          <button
+          </Link>
+          <Link
+            to={`/movies/page-${determinePageButtonValue(null, 2)}`}
             value={determinePageButtonValue(null, 2)}
             className={`p-1 pr-3 pl-3 ${buttonCommonStyles}`}
           >
             {determinePageButtonValue(null, 2)}
-          </button>
+          </Link>
           <p>...</p>
-          <button
+          <Link
+            to={`/movies/page-${determinePageButtonValue(null, 10)}`}
             value={determinePageButtonValue(null, 10)}
             className={`p-1 pr-2 pl-2 ${buttonCommonStyles}`}
           >
             {determinePageButtonValue(null, 10)}
-          </button>
+          </Link>
         </div>
-        <button
+        <Link
+          to={`/movies/page-${popularMoviesPage}`}
           className={`${buttonCommonStyles} bg-indigo-400 p-1 pr-2 pl-1`}
           onClick={
             pageOf === popularMovies
@@ -138,7 +131,7 @@ function Paginate({ pageOf }) {
           }
         >
           &#10230;
-        </button>
+        </Link>
       </div>
     </section>
   );

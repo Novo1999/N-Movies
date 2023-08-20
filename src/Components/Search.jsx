@@ -23,33 +23,35 @@ function Search({ text }) {
             {searchSuggestions?.map((content, i) => {
               {
                 return content.original_title || content.poster_path ? (
-                  <Link
-                    to={
-                      content.media_type === "movie"
-                        ? `movies/movie/${content.id}`
-                        : `tv-series/series/${content.id}`
-                    }
-                    className="flex flex-row justify-between items-center p-4 gap-3"
-                    key={i}
-                  >
-                    <img
-                      className="h-24"
-                      src={`https://image.tmdb.org/t/p/original${content.poster_path}`}
-                      alt=""
-                    />
-                    <div className="flex flex-col gap-3">
-                      <p className="text-md w-64 font-semibold">
-                        {content.original_title || content.original_name}
-                      </p>
-                      <div className=" w-64 flex">
-                        <p className="text-sm w-96 font-thin capitalize relative">
-                          <span className="">Type: </span>
-                          {content.media_type}
+                  <>
+                    <Link
+                      to={
+                        content.media_type === "movie"
+                          ? `/movies/movie/${content.id}`
+                          : `/tv-series/series/${content.id}`
+                      }
+                      className="flex flex-row justify-between items-center p-4 gap-3"
+                      key={i}
+                    >
+                      <img
+                        className="h-24"
+                        src={`https://image.tmdb.org/t/p/original${content.poster_path}`}
+                        alt=""
+                      />
+                      <div className="flex flex-col gap-3">
+                        <p className="text-md w-64 font-semibold">
+                          {content.original_title || content.original_name}
                         </p>
-                        <p className="text-xs">⭐{content.vote_average}</p>
+                        <div className=" w-64 flex">
+                          <p className="text-sm w-96 font-thin capitalize relative">
+                            <span className="">Type: </span>
+                            {content.media_type}
+                          </p>
+                          <p className="text-xs">⭐{content.vote_average}</p>
+                        </div>
                       </div>
-                    </div>
-                  </Link>
+                    </Link>
+                  </>
                 ) : (
                   ""
                 );
