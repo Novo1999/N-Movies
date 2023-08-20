@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   popularMoviesNextPage,
@@ -8,18 +8,31 @@ import {
   popularSeriesPreviousPage,
   popularSeriesSpecificPage,
 } from "../features/movies/movieSlice";
+import { useSearchParams } from "react-router-dom";
 
 function Paginate({ pageOf }) {
   const dispatch = useDispatch();
   const { popularMovies, popularMoviesPage, popularSeriesPage, popularSeries } =
     useSelector((state) => state.movie);
   const [currentBtn, setCurrentBtn] = useState(null);
+  const [search, setSearch] = useSearchParams();
 
   const buttonCommonStyles = `rounded-3xl bg-indigo-200 border-2 border-none p-1 hover:text-white transition-all font-semibold shadow-md`;
 
   function handleCurrentButton(e) {
     setCurrentBtn(+e.target.value);
   }
+
+  const handlePageURL = useCallback(() => {
+    function handlePageURL() {
+      setSearch({ page: popularMoviesPage });
+    }
+    handlePageURL();
+  }, [popularMoviesPage, setSearch]);
+
+  useEffect(() => {
+    handlePageURL();
+  }, [search, handlePageURL]);
 
   function determinePreviousButtonVisibility() {
     if (pageOf === popularSeries) {
@@ -70,6 +83,7 @@ function Paginate({ pageOf }) {
     >
       <div className="flex justify-center items-center gap-3">
         <button
+          to={`?page=${search.get("page")}`}
           className={`${buttonCommonStyles} rounded-3xl border-2 border-none bg-indigo-400 p-1 pr-1 pl-2 ${determinePreviousButtonVisibility()}`}
           onClick={
             pageOf === popularMovies

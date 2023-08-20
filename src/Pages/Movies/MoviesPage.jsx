@@ -9,8 +9,7 @@ import Spinner from "../../Components/Spinner/Spinner";
 import Paginate from "../../Components/Paginate";
 import "./MoviesPage.css";
 import { Search } from "../../Components";
-import { Link } from "react-router-dom";
-import { setCurrentParam } from "../../features/movies/movieSlice";
+import { Link, useLocation, useSearchParams } from "react-router-dom";
 
 function MoviesPage() {
   const { popularMovies } = useSelector((state) => state.movie);
@@ -24,6 +23,9 @@ function MoviesPage() {
 function MoviesSection({ children }) {
   const dispatch = useDispatch();
   const { popularMoviesPage } = useSelector((state) => state.movie);
+
+  const location = useLocation();
+  console.log(+location.search.split("=").filter((item) => +item));
 
   useEffect(() => {
     dispatch(fetchMovies("popular", popularMoviesPage));

@@ -10,6 +10,7 @@ export const movieSlice = createSlice({
     isMoviesLoading: false,
     isSeriesLoading: false,
     currentContent: [],
+    searchSuggestions: [],
   },
   reducers: {
     // Movies
@@ -70,6 +71,11 @@ export const movieSlice = createSlice({
       action.payload.backdrop_path = `https://image.tmdb.org/t/p/original${action.payload.backdrop_path}`;
       state.currentContent = action.payload;
     },
+
+    // Keyword
+    setSearchSuggestions: (state, action) => {
+      state.searchSuggestions = action.payload.results;
+    },
   },
 });
 
@@ -90,7 +96,7 @@ export const {
   popularSeriesSpecificPage,
   setCurrentID,
   setCurrentContent,
-  setCurrentParam,
+  setSearchSuggestions,
 } = actions;
 
 export default reducer;

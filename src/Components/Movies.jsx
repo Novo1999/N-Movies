@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { memo, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   fetchMovies,
@@ -6,23 +6,22 @@ import {
 } from "../features/movies/moviesActions";
 
 import Spinner from "./Spinner/Spinner";
-import Paginate from "./Paginate";
 import { Link } from "react-router-dom";
 
 function Movies() {
-  return (
-    <MoviesSection>
-      <Paginate />
-    </MoviesSection>
-  );
+  return <MoviesSection></MoviesSection>;
 }
 
-function MoviesSection({ children }) {
+const MoviesSection = memo(function MoviesSection() {
   const dispatch = useDispatch();
   const { popularMoviesPage, isMoviesLoading } = useSelector(
     (state) => state.movie
   );
   const { popularMovies } = useSelector((state) => state.movie);
+
+  // function handlePageURL() {
+  //   setSearch({ page: popularMoviesPage });
+  // }
 
   useEffect(() => {
     dispatch(fetchMovies("popular", popularMoviesPage));
@@ -39,7 +38,7 @@ function MoviesSection({ children }) {
               Movies - Popular Now
             </h1>
             <Link
-              to="/movies"
+              to={`/movies`}
               className="bg-blue-700 flex justify-center items-center pl-4 pr-4 rounded-3xl text-white h-12 hover:bg-black transition-all shadow-md"
             >
               See More &#10140;
@@ -70,6 +69,6 @@ function MoviesSection({ children }) {
       )}
     </section>
   );
-}
+});
 
 export default Movies;

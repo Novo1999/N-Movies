@@ -1,12 +1,6 @@
 import { Provider, useSelector } from "react-redux";
 import { store } from "./Store/store";
-import {
-  BrowserRouter,
-  Route,
-  RouterProvider,
-  Routes,
-  createBrowserRouter,
-} from "react-router-dom";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
 
 import MoviesPage from "./Pages/Movies/MoviesPage";
 import Homepage from "./Pages/Homepage/Homepage";
