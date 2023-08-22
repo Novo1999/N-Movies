@@ -12,6 +12,16 @@ export const movieSlice = createSlice({
     isSearchSuggestionLoading: false,
     currentContent: [],
     searchSuggestions: [],
+    watchList: [],
+    selectedFilters: {
+      adult: null,
+      page: 1,
+      sort: null,
+      genre: [],
+      year: new Date().getFullYear,
+    },
+    filtered: [],
+    selectedFiltersPage: 1,
   },
   reducers: {
     // Movies
@@ -80,6 +90,11 @@ export const movieSlice = createSlice({
     searchSuggestionsLoading: (state, action) => {
       state.isSearchSuggestionLoading = action.payload;
     },
+
+    // Filter
+    setSelectedFilters: (state, action) => {
+      state.filtered = action.payload.results;
+    },
   },
 });
 
@@ -102,6 +117,7 @@ export const {
   setCurrentContent,
   setSearchSuggestions,
   searchSuggestionsLoading,
+  setSelectedFilters,
 } = actions;
 
 export default reducer;

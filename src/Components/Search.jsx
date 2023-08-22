@@ -2,6 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { fetchContentBySearch } from "../features/movies/moviesActions";
 import { Link } from "react-router-dom";
+import Filter from "./Filter";
 
 function Search({ text }) {
   const dispatch = useDispatch();
@@ -13,8 +14,12 @@ function Search({ text }) {
   }, [keyword, dispatch]);
 
   return (
-    <section className="relative">
-      <form className="text-white flex justify-center items-center py-8">
+    <section className="relative flex items-center gap-4">
+      <Filter />
+      <form
+        autoComplete="off"
+        className="text-white flex justify-center items-center py-8"
+      >
         <label className="mr-4 mb-2 w-48" htmlFor="Search For Movies">
           Search For {text}
         </label>

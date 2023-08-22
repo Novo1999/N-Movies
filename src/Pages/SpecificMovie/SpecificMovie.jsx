@@ -36,6 +36,7 @@ function SpecificMovie() {
     spoken_languages,
     status,
   } = currentContent;
+  console.log(currentContent);
 
   return (
     <section className="relative h-screen overflow-auto bg-slate-700">
@@ -56,7 +57,13 @@ function SpecificMovie() {
                 alt="movie"
               />
               <div className="w-[60%] h-[30%] mt-40 flex flex-col gap-4 bg-gray-900/20 p-10">
-                <h1 className="text-5xl mt-4 mb-4">{title}</h1>
+                <div className="flex gap-10 items-center">
+                  <h1 className="text-5xl mt-4 mb-4">{title}</h1>
+                  <button className="flex items-center gap-2 border-2 p-2 h-14 rounded-md hover:bg-white hover:text-black transition-all duration-500">
+                    <span className="font-thin text-3xl">+</span> Add to
+                    Watchlist
+                  </button>
+                </div>
                 <p className="font-bold">{status}</p>
                 <h3 className="text-lg">Release Date: {release_date}</h3>
                 <p className="text-xl mb-4">{overview}</p>
@@ -76,6 +83,7 @@ function SpecificMovie() {
                     );
                   })}
                 </div>
+
                 <a
                   target="_blank"
                   rel="noreferrer"
@@ -86,6 +94,7 @@ function SpecificMovie() {
                 </a>
               </div>
             </div>
+
             <div className="w-full h-full mt-4 gap-4 bg-gray-900/20 z-10 p-10 text-white font-thin text-md ">
               {/* Genre */}
               <div className="flex gap-3 items-center mb-10">

@@ -7,6 +7,7 @@ import {
   seriesLoading,
   setCurrentContent,
   setSearchSuggestions,
+  setSelectedFilters,
 } from "./movieSlice";
 
 export function fetchMovies(query, page) {
@@ -49,6 +50,7 @@ export function fetchSeries(query, timeWindow, page) {
     const data = await res.json();
     dispatch(seriesLoading(false));
     dispatch(getPopularSeries(data));
+    dispatch(popularMoviesPage(data.page));
   };
 }
 
@@ -114,5 +116,34 @@ export function fetchContentBySearch(keyword) {
     // console.log(data);
     dispatch(searchSuggestionsLoading(false));
     dispatch(setSearchSuggestions(data));
+  };
+}
+
+export function fetchContentsByFilter(
+  adult = false,
+  page = 1,
+  sortBy = "popularity.desc",
+  genre = null,
+  year = new Date().getFullYear
+) {
+  return async function (dispatch) {
+    const options = {
+      method: "GET",
+      headers: {
+        accept: "application/json",
+        Authorization:
+          "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiJlNGUxYzkwZTM2ODA0OTBiNWYxOWIwZDZmMWRiNjljZSIsInN1YiI6IjY0ZGNhYjI3MDAxYmJkMDQxYWYzYzMxMyIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.UsYP_fdC5O1-eBJtoo4_lAf0xYDkX3Bhlk64cHo0bxk",
+      },
+    };
+
+    dispatch(searchSuggestionsLoading(true));
+    const res = await fetch(
+      `https://api.themoviedb.org/3/discover/movie?include_adult=${adult}&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}&with_genres=${genre}&year=${year}`,
+      options
+    );
+    const data = await res.json();
+    console.log(data);
+    dispatch(setSelectedFilters(data));
+    // console.log(data);
   };
 }

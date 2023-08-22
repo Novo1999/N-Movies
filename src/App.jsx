@@ -6,6 +6,7 @@ import MoviesPage from "./Pages/Movies/MoviesPage";
 import Homepage from "./Pages/Homepage/Homepage";
 import { ErrorPage, SeriesPage, SpecificMovie, SpecificSeries } from "./Pages";
 import { Spinner } from "./Components";
+import FilteredPage from "./Pages/FilteredPage/FilteredPage";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,11 @@ const router = createBrowserRouter([
   {
     path: "tv-series/series/:id",
     element: <SpecificSeries />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "filter",
+    element: <FilteredPage />,
     errorElement: <ErrorPage />,
   },
 ]);

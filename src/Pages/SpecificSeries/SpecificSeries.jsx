@@ -58,8 +58,14 @@ function SpecificMovie() {
                 src={poster_path}
                 alt="movie"
               />
-              <div className="w-[60%] h-[30%] flex flex-col gap-4 bg-gray-900/20  p-10">
-                <h1 className="text-5xl mt-4 mb-4">{name}</h1>
+              <div className="w-[60%] h-[30%] flex flex-col gap-4 bg-gray-900/20 p-10 mt-40">
+                <div className="flex gap-10 items-center">
+                  <h1 className="text-5xl mt-4 mb-4">{name}</h1>
+                  <button className="flex items-center gap-2 border-2 p-2 h-14 rounded-md hover:bg-white hover:text-black transition-all duration-500">
+                    <span className="font-thin text-3xl">+</span> Add to
+                    Watchlist
+                  </button>
+                </div>
                 <p className="font-thin">
                   Last episode Aired on: {last_air_date}
                 </p>
@@ -94,7 +100,7 @@ function SpecificMovie() {
                 </a>
               </div>
             </div>
-            <div className="w-full h-full mt-4 gap-4 bg-gray-900/20 z-10 p-10 text-white font-thin text-md ">
+            <div className="w-full h-full  gap-4 bg-gray-900/20 z-10 p-10 text-white font-thin text-md mt-40">
               {/* Genre */}
               <div className="flex gap-3 items-center mb-10">
                 <p>Genre: </p>

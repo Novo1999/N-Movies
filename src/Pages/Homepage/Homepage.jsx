@@ -1,4 +1,4 @@
-import { Favorites, Search, TopRated, Movies, Series } from "../../Components";
+import { Watchlist, Search, TopRated, Movies, Series } from "../../Components";
 
 function Homepage() {
   return (
@@ -13,7 +13,7 @@ function Homepage() {
         <Movies />
         <Series />
         <TopRated />
-        <Favorites />
+        <Watchlist />
       </section>
     </main>
   );
