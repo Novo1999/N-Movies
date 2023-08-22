@@ -26,7 +26,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "tv-series",
+    path: "tv-series/:page",
     element: <SeriesPage />,
     errorElement: <ErrorPage />,
   },
@@ -41,7 +41,7 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "filter",
+    path: "filter/:page",
     element: <FilteredPage />,
     errorElement: <ErrorPage />,
   },

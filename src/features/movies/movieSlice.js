@@ -18,10 +18,10 @@ export const movieSlice = createSlice({
       genreArr: [],
       genre: "",
       year: new Date().getFullYear(),
+      page: 1,
     },
     isFilterLoading: false,
     filtered: [],
-    selectedFiltersPage: 1,
   },
   reducers: {
     // Movies
@@ -100,14 +100,26 @@ export const movieSlice = createSlice({
           action.payload.genreArr.length > 1
             ? action.payload.genreArr.join("%2C")
             : action.payload.genreArr.join(),
+        page: 1,
       };
-      console.log(state.selectedFilters.genre);
+      console.log(state.selectedFilters);
     },
     filterLoading: (state, action) => {
       state.isFilterLoading = action.payload;
     },
     setFilteredContents: (state, action) => {
       state.filtered = action.payload.results;
+    },
+    filteredMoviesNextPage: (state, _) => {
+      state.selectedFilters.page += 1;
+    },
+    filteredMoviesPreviousPage: (state, _) => {
+      state.selectedFilters.page > 1
+        ? (state.selectedFilters.page -= 1)
+        : state.selectedFilters.page;
+    },
+    filteredMoviesSpecificPage: (state, action) => {
+      state.selectedFilters.page = action.payload;
     },
   },
 });
@@ -134,6 +146,9 @@ export const {
   setFilteredContents,
   setFilter,
   filterLoading,
+  filteredMoviesNextPage,
+  filteredMoviesPreviousPage,
+  filteredMoviesSpecificPage,
 } = actions;
 
 export default reducer;

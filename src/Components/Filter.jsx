@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchContentsByFilter } from "../features/movies/moviesActions";
 import { Link } from "react-router-dom";
@@ -8,8 +8,8 @@ import { genres } from "../data/genres";
 function Filter() {
   const dispatch = useDispatch();
   const { selectedFilters } = useSelector((state) => state.movie);
-  const { sort, adult, genre, year } = selectedFilters;
-  console.log(sort, adult, genre, year);
+  const { sort, adult, genre, year, page } = selectedFilters;
+  console.log(page);
   const [filterIsOpened, setFilterIsOpened] = useState(false);
 
   function handleAdult(e) {
@@ -148,9 +148,9 @@ function Filter() {
               );
             })}
             <Link
-              to="/filter"
+              to={`/filter/page-${page}`}
               onClick={() =>
-                dispatch(fetchContentsByFilter(sort, genre, adult, year))
+                dispatch(fetchContentsByFilter(sort, genre, adult, year, page))
               }
               className="border-2 w-24 rounded-md hover:bg-white hover:text-black transition-all flex justify-center"
             >

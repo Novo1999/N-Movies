@@ -22,11 +22,13 @@ function MoviesPage() {
 
 function MoviesSection({ children }) {
   const dispatch = useDispatch();
-  const { selectedFiltersPage } = useSelector((state) => state.movie);
+  const { selectedFilters } = useSelector((state) => state.movie);
+
+  const { sort, adult, genre, year, page } = selectedFilters;
 
   useEffect(() => {
-    dispatch(fetchContentsByFilter());
-  }, [dispatch, selectedFiltersPage]);
+    dispatch(fetchContentsByFilter(sort, adult, genre, year, page));
+  }, [dispatch, page, sort, adult, genre, year]);
 
   return <Button>{children}</Button>;
 }

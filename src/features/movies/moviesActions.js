@@ -121,7 +121,8 @@ export function fetchContentsByFilter(
   sortBy = "popularity.desc",
   genre = null,
   adult = false,
-  year = new Date().getFullYear
+  year = new Date().getFullYear,
+  page = 1
 ) {
   return async function (dispatch) {
     const options = {
@@ -134,7 +135,7 @@ export function fetchContentsByFilter(
     };
     dispatch(filterLoading(true));
     const res = await fetch(
-      `https://api.themoviedb.org/3/discover/movie?include_adult=${adult}&include_video=false&language=en-US&sort_by=${sortBy}&with_genres=${genre}&year=${year}`,
+      `https://api.themoviedb.org/3/discover/movie?include_adult=${adult}&include_video=false&language=en-US&page=${page}&sort_by=${sortBy}&with_genres=${genre}&year=${year}`,
       options
     );
     const data = await res.json();
