@@ -1,36 +1,68 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setSelectedFilters } from "../features/movies/movieSlice";
 import { fetchContentsByFilter } from "../features/movies/moviesActions";
 import { Link } from "react-router-dom";
-
-const filterOptions = [
-  "Action",
-  "Adventure",
-  "Animation",
-  "Comedy",
-  "Crime",
-  "Documentary",
-  "Drama",
-  "Family",
-  "Fantasy",
-  "History",
-  "Horror",
-  "Music",
-  "Mystery",
-  "Romance",
-  "Science Fiction",
-  "TV Movie",
-  "Thriller",
-  "War",
-  "Western",
-];
+import { setFilter } from "../features/movies/movieSlice";
+import { genres } from "../data/genres";
 
 function Filter() {
   const dispatch = useDispatch();
   const { selectedFilters } = useSelector((state) => state.movie);
-  console.log(selectedFilters);
+  const { sort, adult, genre, year } = selectedFilters;
+  console.log(sort, adult, genre, year);
   const [filterIsOpened, setFilterIsOpened] = useState(false);
+
+  function handleAdult(e) {
+    dispatch((dispatch, getState) => {
+      const prevState = getState().movie.selectedFilters;
+      dispatch(
+        setFilter({
+          ...prevState,
+          adult: e.target.checked.toString(),
+        })
+      );
+    });
+  }
+
+  function handleYear(e) {
+    dispatch((dispatch, getState) => {
+      const prevState = getState().movie.selectedFilters;
+      dispatch(
+        setFilter({
+          ...prevState,
+          year: e.target.value || new Date().getFullYear(),
+        })
+      );
+    });
+  }
+
+  function handleSortOption(e) {
+    dispatch((dispatch, getState) => {
+      const prevState = getState().movie.selectedFilters;
+      dispatch(
+        setFilter({
+          ...prevState,
+          sort: e.target.value,
+        })
+      );
+    });
+  }
+
+  function handleGenre(e) {
+    dispatch((dispatch, getState) => {
+      const prevState = getState().movie.selectedFilters;
+      const value = e.target.value;
+      dispatch(
+        setFilter({
+          ...prevState,
+          genreArr: e.target.checked
+            ? [...prevState.genreArr, value]
+            : prevState.genreArr.filter((genre) => genre !== value),
+        })
+      );
+    });
+  }
+
   return (
     <div className="relative">
       <button
@@ -52,15 +84,22 @@ function Filter() {
           <hr className="mb-4" />
           <div className="flex">
             <div className="flex gap-4 items-center">
-              <input type="checkbox" name="adult" id="adult" />
+              <input
+                onChange={(e) => handleAdult(e)}
+                type="checkbox"
+                name="adult"
+                id="adult"
+              />
               <label htmlFor="Adult">Adult</label>
               <label htmlFor="Year">Year:</label>
               <input
-                className="w-16 pl-2"
+                onChange={(e) => handleYear(e)}
+                className="w-16 pl-2 text-black"
                 type="number"
                 min="1900"
                 max="2099"
                 step="1"
+                maxLength="4"
               />
             </div>
             <div>
@@ -68,9 +107,7 @@ function Filter() {
                 Sort by
               </label>
               <select
-                onChange={(e) =>
-                  dispatch(setSelectedFilters({ sort: e.target.value }))
-                }
+                onChange={(e) => handleSortOption(e)}
                 id="sort"
                 className="w-full ml-4 text-black"
               >
@@ -94,29 +131,28 @@ function Filter() {
           </div>
           <p>Genre: </p>
           <div className="grid grid-cols-2">
-            {filterOptions?.map((option, i) => {
+            {genres?.map((option, i) => {
               return (
                 <div className="flex gap-2" key={i}>
                   <input
                     type="checkbox"
                     name={option}
                     id={option}
-                    value={option}
+                    value={option.id}
+                    onChange={(e) => handleGenre(e)}
                   />
                   <label className="cursor-pointer" htmlFor={option}>
-                    {option}
+                    {option.name}
                   </label>
                 </div>
               );
             })}
             <Link
-              to="filter"
+              to="/filter"
               onClick={() =>
-                dispatch(
-                  fetchContentsByFilter(false, 1, selectedFilters.sort, null)
-                )
+                dispatch(fetchContentsByFilter(sort, genre, adult, year))
               }
-              className="border-2 w-24 rounded-md hover:bg-white hover:text-black transition-all"
+              className="border-2 w-24 rounded-md hover:bg-white hover:text-black transition-all flex justify-center"
             >
               Search
             </Link>

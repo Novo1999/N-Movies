@@ -12,10 +12,10 @@ import { Search } from "../../Components";
 import { Link } from "react-router-dom";
 
 function MoviesPage() {
-  const { popularMovies } = useSelector((state) => state.movie);
+  const { filtered } = useSelector((state) => state.movie);
   return (
     <MoviesSection>
-      <Paginate pageOf={popularMovies} />
+      <Paginate pageOf={filtered} />
     </MoviesSection>
   );
 }
@@ -35,7 +35,8 @@ export default MoviesPage;
 
 function Button({ children }) {
   const dispatch = useDispatch();
-  const { filtered, isMoviesLoading } = useSelector((state) => state.movie);
+  const { filtered, isFilterLoading } = useSelector((state) => state.movie);
+
   return (
     <section className="col-span-3 row-span-2 relative h-[112.5rem] movie-section overflow-hidden overflow-x-hidden bg-slate-900">
       <img
@@ -43,13 +44,13 @@ function Button({ children }) {
         src="/images/movie-bg.jpg"
         alt="movie bg"
       />
-      {isMoviesLoading ? (
+      {isFilterLoading ? (
         <Spinner bottomposition="bottom-[50rem]" />
       ) : (
         <>
           <div className="flex ml-8 mr-6 h-14 top-4 relative items-center">
             <h1 className="text-white text-xl text-center relative font-thin">
-              Movies - Popular Now
+              Movies - Filtered
             </h1>
             <div className="m-auto relative bottom-6">
               <Search text="movies" />

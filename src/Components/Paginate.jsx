@@ -15,7 +15,7 @@ function Paginate({ pageOf }) {
   const { popularMovies, popularMoviesPage, popularSeriesPage, popularSeries } =
     useSelector((state) => state.movie);
   const [currentBtn, setCurrentBtn] = useState(null);
-  console.log(popularMoviesPage);
+
   const buttonCommonStyles = `rounded-3xl bg-indigo-200 border-2 border-none p-1 hover:text-white transition-all font-semibold shadow-md`;
 
   function handleCurrentButton(e) {
@@ -63,6 +63,8 @@ function Paginate({ pageOf }) {
       return popularSeriesPage + increment;
     }
   }
+
+  function determinePageContent() {}
 
   return (
     <section

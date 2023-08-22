@@ -9,17 +9,17 @@ export const movieSlice = createSlice({
     popularSeriesPage: 1,
     isMoviesLoading: false,
     isSeriesLoading: false,
-    isSearchSuggestionLoading: false,
     currentContent: [],
     searchSuggestions: [],
     watchList: [],
     selectedFilters: {
       adult: null,
-      page: 1,
       sort: null,
-      genre: [],
-      year: new Date().getFullYear,
+      genreArr: [],
+      genre: "",
+      year: new Date().getFullYear(),
     },
+    isFilterLoading: false,
     filtered: [],
     selectedFiltersPage: 1,
   },
@@ -87,12 +87,26 @@ export const movieSlice = createSlice({
     setSearchSuggestions: (state, action) => {
       state.searchSuggestions = action.payload.results;
     },
-    searchSuggestionsLoading: (state, action) => {
-      state.isSearchSuggestionLoading = action.payload;
-    },
 
     // Filter
-    setSelectedFilters: (state, action) => {
+    setFilter: (state, action) => {
+      state.selectedFilters = {
+        ...state.selectedFilters,
+        sort: action.payload.sort,
+        adult: action.payload.adult,
+        year: action.payload.year,
+        genreArr: action.payload.genreArr,
+        genre:
+          action.payload.genreArr.length > 1
+            ? action.payload.genreArr.join("%2C")
+            : action.payload.genreArr.join(),
+      };
+      console.log(state.selectedFilters.genre);
+    },
+    filterLoading: (state, action) => {
+      state.isFilterLoading = action.payload;
+    },
+    setFilteredContents: (state, action) => {
       state.filtered = action.payload.results;
     },
   },
@@ -117,7 +131,9 @@ export const {
   setCurrentContent,
   setSearchSuggestions,
   searchSuggestionsLoading,
-  setSelectedFilters,
+  setFilteredContents,
+  setFilter,
+  filterLoading,
 } = actions;
 
 export default reducer;
