@@ -4,8 +4,6 @@ import { useEffect } from "react";
 import { fetchSpecificSeries } from "../../features/movies/moviesActions";
 import { useParams } from "react-router";
 
-const ONE_MILLION = 1000000;
-
 function SpecificMovie() {
   const { currentContent, isMoviesLoading, isSeriesLoading } = useSelector(
     (state) => state.movie
@@ -13,7 +11,6 @@ function SpecificMovie() {
 
   const dispatch = useDispatch();
   const { id: seriesId } = useParams();
-  console.log(seriesId);
 
   useEffect(() => {
     dispatch(fetchSpecificSeries(seriesId));

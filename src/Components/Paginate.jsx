@@ -22,36 +22,36 @@ function Paginate({ pageOf }) {
     popularSeries,
     filtered,
     selectedFilters,
+    filteredPage,
   } = useSelector((state) => state.movie);
   const [currentBtn, setCurrentBtn] = useState(null);
   const [path, setPath] = useState("");
   const buttonCommonStyles = `rounded-3xl bg-indigo-200 border-2 border-none p-1 hover:text-white transition-all font-semibold shadow-md`;
 
-  console.log(pageOf === popularSeries);
+  console.log(popularMoviesPage);
+  console.log(path);
 
-  function handleCurrentButton(e) {
-    setCurrentBtn(+e.target.value);
-  }
-
-  useEffect(() => {
-    if (pageOf === popularMovies) {
-      setPath(`/movies/page-${popularMoviesPage}`);
-    }
-    if (pageOf === popularSeries) {
-      setPath(`/tv-series/page-${popularSeriesPage}`);
-    }
-    if (pageOf === filtered) {
-      setPath(`/filter/page-${selectedFilters.page}`);
-    }
-  }, [
-    filtered,
-    popularMovies,
-    popularMoviesPage,
-    popularSeriesPage,
-    selectedFilters,
-    popularSeries,
-    pageOf,
-  ]);
+  // useEffect(() => {
+  //   if (pageOf === popularMovies) {
+  //     setPath(`/movies/page-${popularMoviesPage}`);
+  //   }
+  //   if (pageOf === popularSeries) {
+  //     setPath(`/tv-series/page-${popularSeriesPage}`);
+  //   }
+  //   if (pageOf === filtered) {
+  //     setPath(`/filter/page-${filteredPage}`);
+  //   }
+  // }, [
+  //   filtered,
+  //   popularMovies,
+  //   selectedFilters,
+  //   popularSeries,
+  //   filteredPage,
+  //   popularMoviesPage,
+  //   popularSeriesPage,
+  //   pageOf,
+  // ]);
+  console.log(currentBtn);
 
   function determinePreviousButtonVisibility() {
     if (pageOf === popularSeries) {
@@ -95,8 +95,25 @@ function Paginate({ pageOf }) {
     }
   }
 
+  function nextButtonValue() {
+    if (pageOf === popularMovies) return popularMoviesPage + 1;
+    if (pageOf === popularSeries) return popularSeriesPage + 1;
+    if (pageOf === filtered) return filteredPage + 1;
+  }
+  function buttonPath() {
+    if (pageOf === popularMovies) return "movies";
+    if (pageOf === popularSeries) return "tv-series";
+    if (pageOf === filtered) return "filter";
+  }
+  function prevButtonValue() {
+    if (pageOf === popularMovies) return popularMoviesPage - 1;
+    if (pageOf === popularSeries) return popularSeriesPage - 1;
+    if (pageOf === filtered) return filteredPage - 1;
+  }
+
   function determinePreviousButton() {
     if (pageOf === popularMovies) {
+      console.log(popularMoviesPage - 1);
       dispatch(popularMoviesPreviousPage());
     }
     if (pageOf === popularSeries) {
@@ -120,13 +137,13 @@ function Paginate({ pageOf }) {
 
   function determineSpecificButtons(e) {
     if (pageOf === popularMovies) {
-      dispatch(popularMoviesSpecificPage(+e.target.value));
+      dispatch(popularMoviesSpecificPage(+e.target.innerText));
     }
     if (pageOf === popularSeries) {
-      dispatch(popularSeriesSpecificPage(+e.target.value));
+      dispatch(popularSeriesSpecificPage(+e.target.innerText));
     }
     if (pageOf === filtered) {
-      dispatch(filteredMoviesSpecificPage(+e.target.value));
+      dispatch(filteredMoviesSpecificPage(+e.target.innerText));
     }
   }
 
@@ -137,7 +154,7 @@ function Paginate({ pageOf }) {
     >
       <div className="flex justify-center items-center gap-3">
         <Link
-          to={path}
+          to={`/${buttonPath()}/page-${prevButtonValue()}`}
           className={`${buttonCommonStyles} rounded-3xl border-2 border-none bg-indigo-400 p-1 pr-1 pl-2 ${determinePreviousButtonVisibility()}`}
           onClick={determinePreviousButton}
         >
@@ -145,28 +162,28 @@ function Paginate({ pageOf }) {
         </Link>
         <div
           onClick={(e) => {
-            if (!e.target.value) return;
-            handleCurrentButton(e);
+            // if (!e.target.value) return;
             determineSpecificButtons(e);
+            // console.log(+e.target.innerText);
           }}
           className="flex gap-4"
         >
           <Link
-            to={path}
+            to={`/${buttonPath()}/page-${determinePageButtonValue(1)}`}
             value={determinePageButtonValue(1)}
             className={`p-1 pr-[0.8rem] pl-[0.8rem]  ${buttonCommonStyles}`}
           >
             {determinePageButtonValue(1)}
           </Link>
           <Link
-            to={path}
+            to={`/${buttonPath()}/page-${determinePageButtonValue(null, 1)}`}
             value={determinePageButtonValue(null, 1)}
             className={`p-1 pr-3 pl-3 ${buttonCommonStyles}`}
           >
             {determinePageButtonValue(null, 1)}
           </Link>
           <Link
-            to={path}
+            to={`/${buttonPath()}/page-${determinePageButtonValue(null, 2)}`}
             value={determinePageButtonValue(null, 2)}
             className={`p-1 pr-3 pl-3 ${buttonCommonStyles}`}
           >
@@ -174,7 +191,7 @@ function Paginate({ pageOf }) {
           </Link>
           <p>...</p>
           <Link
-            to={path}
+            to={`/${buttonPath()}/page-${determinePageButtonValue(null, 10)}`}
             value={determinePageButtonValue(null, 10)}
             className={`p-1 pr-2 pl-2 ${buttonCommonStyles}`}
           >
@@ -182,7 +199,7 @@ function Paginate({ pageOf }) {
           </Link>
         </div>
         <Link
-          to={path}
+          to={`/${buttonPath()}/page-${nextButtonValue()}`}
           className={`${buttonCommonStyles} bg-indigo-400 p-1 pr-2 pl-1`}
           onClick={determineNextButton}
         >

@@ -9,7 +9,6 @@ function Filter() {
   const dispatch = useDispatch();
   const { selectedFilters } = useSelector((state) => state.movie);
   const { sort, adult, genre, year, page } = selectedFilters;
-  console.log(page);
   const [filterIsOpened, setFilterIsOpened] = useState(false);
 
   function handleAdult(e) {

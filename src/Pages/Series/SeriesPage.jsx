@@ -42,7 +42,7 @@ function SeriesPage() {
               return (
                 <div className="flex flex-col gap-4 items-center" key={i}>
                   <Link
-                    to={`series/${series.id}`}
+                    to={`/tv-series/series/${series.id}`}
                     onClick={() => dispatch(fetchSpecificSeries(series.id))}
                   >
                     <img
