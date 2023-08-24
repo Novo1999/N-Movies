@@ -28,9 +28,6 @@ function Paginate({ pageOf }) {
   const [path, setPath] = useState("");
   const buttonCommonStyles = `rounded-3xl bg-indigo-200 border-2 border-none p-1 hover:text-white transition-all font-semibold shadow-md`;
 
-  console.log(popularMoviesPage);
-  console.log(path);
-
   // useEffect(() => {
   //   if (pageOf === popularMovies) {
   //     setPath(`/movies/page-${popularMoviesPage}`);
@@ -51,7 +48,6 @@ function Paginate({ pageOf }) {
   //   popularSeriesPage,
   //   pageOf,
   // ]);
-  console.log(currentBtn);
 
   function determinePreviousButtonVisibility() {
     if (pageOf === popularSeries) {
@@ -113,7 +109,6 @@ function Paginate({ pageOf }) {
 
   function determinePreviousButton() {
     if (pageOf === popularMovies) {
-      console.log(popularMoviesPage - 1);
       dispatch(popularMoviesPreviousPage());
     }
     if (pageOf === popularSeries) {
@@ -164,7 +159,6 @@ function Paginate({ pageOf }) {
           onClick={(e) => {
             // if (!e.target.value) return;
             determineSpecificButtons(e);
-            // console.log(+e.target.innerText);
           }}
           className="flex gap-4"
         >

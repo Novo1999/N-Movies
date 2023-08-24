@@ -25,7 +25,7 @@ function Search({ text }) {
         </label>
         {searchSuggestions.length > 0 && (
           <div className="w-96 border-2 absolute ml-24 top-[4.2rem] overflow-auto overflow-x-hidden max-h-96 h-auto z-10 bg-white text-black flex flex-col">
-            {searchSuggestions?.map((content, i) => {
+            {searchSuggestions?.map((content) => {
               {
                 return content.original_title || content.poster_path ? (
                   <>
@@ -36,7 +36,7 @@ function Search({ text }) {
                           : `/tv-series/series/${content.id}`
                       }
                       className="flex flex-row justify-between items-center p-4 gap-3"
-                      key={i}
+                      key={content.id}
                     >
                       <img
                         className="h-24"

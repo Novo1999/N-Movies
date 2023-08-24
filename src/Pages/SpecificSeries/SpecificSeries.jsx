@@ -36,7 +36,6 @@ function SpecificMovie() {
     episode_run_time,
   } = currentContent;
 
-  console.log(currentContent);
   return (
     <section className="relative h-screen overflow-auto bg-slate-700">
       {isMoviesLoading || isSeriesLoading ? (

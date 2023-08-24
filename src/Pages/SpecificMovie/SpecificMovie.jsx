@@ -36,7 +36,6 @@ function SpecificMovie() {
     spoken_languages,
     status,
   } = currentContent;
-  console.log(currentContent);
 
   return (
     <section className="relative h-screen overflow-auto bg-slate-700">
