@@ -6,7 +6,6 @@ import {
 } from "../features/movies/moviesActions";
 import Spinner from "./Spinner/Spinner";
 import { Link } from "react-router-dom";
-import { setCurrentID } from "../features/movies/movieSlice";
 
 function Series() {
   const dispatch = useDispatch();
@@ -44,7 +43,7 @@ function Series() {
                     onClick={() => dispatch(fetchSpecificSeries(series.id))}
                   >
                     <img
-                      className="p-2 w-36 h-52 rounded-xl"
+                      className="p-2 w-36 rounded-xl"
                       key={i}
                       src={series.poster_path}
                       alt="series"

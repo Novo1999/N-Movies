@@ -65,7 +65,7 @@ function Button({ children }) {
             {popularMovies?.map((movie, i) => {
               return (
                 <div
-                  className="flex flex-col items-center justify-center"
+                  className="flex flex-col items-center justify-center p-1"
                   key={i}
                 >
                   <Link
@@ -75,12 +75,12 @@ function Button({ children }) {
                     }}
                   >
                     <img
-                      className=" w-56 h-80 mb-8 rounded"
+                      className="w-56 mb-8 rounded"
                       src={movie.poster_path}
                       alt="poster"
                     />
                   </Link>
-                  <p className="text-white font-semibold relative bottom-5 text-s w-50 text-center ">
+                  <p className="text-white font-semibold relative bottom-5 text-s text-center ">
                     {movie.title}
                   </p>
                 </div>

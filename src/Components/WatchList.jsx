@@ -1,13 +1,11 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addToWatchList } from "../features/movies/movieSlice";
+import { useDispatch } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchSpecificMovie } from "../features/movies/moviesActions";
 
 function Watchlist() {
   const dispatch = useDispatch();
   const storedContents = JSON.parse(localStorage.getItem("contents"));
-  // console.log(storedContents);
-  console.log(storedContents);
+
   return (
     <section className="rounded-2xl col-span-1 row-span-1 bg-indigo-600 relative drop-shadow-xl h-96 shadow-xl grid overflow-hidden">
       <h1 className="text-white text-s text-center relative font-thin top-4">
@@ -26,7 +24,7 @@ function Watchlist() {
                 onClick={() => dispatch(fetchSpecificMovie(content.id))}
               >
                 <img
-                  className="w-24 h-34 mb-6 rounded"
+                  className="w-24 mb-6 rounded"
                   src={content.poster}
                   alt="poster"
                 />

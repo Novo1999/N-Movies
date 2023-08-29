@@ -19,10 +19,6 @@ const MoviesSection = memo(function MoviesSection() {
   );
   const { popularMovies } = useSelector((state) => state.movie);
 
-  // function handlePageURL() {
-  //   setSearch({ page: popularMoviesPage });
-  // }
-
   useEffect(() => {
     dispatch(fetchMovies("popular", popularMoviesPage));
   }, [dispatch, popularMoviesPage]);
@@ -53,7 +49,7 @@ const MoviesSection = memo(function MoviesSection() {
                     onClick={() => dispatch(fetchSpecificMovie(movie.id))}
                   >
                     <img
-                      className="w-44 h-64 mb-8 rounded"
+                      className="w-44 mb-8 rounded"
                       src={movie.poster_path}
                       alt="poster"
                     />
@@ -72,8 +68,3 @@ const MoviesSection = memo(function MoviesSection() {
 });
 
 export default Movies;
-
-/*
-[array of ids]
-id map 
-*/

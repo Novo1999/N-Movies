@@ -42,13 +42,13 @@ function SeriesPage() {
           <div className="grid grid-cols-6 absolute right-0 left-2 mt-10 h-screen overflow-scroll p-20">
             {popularSeries?.map((series, i) => {
               return (
-                <div className="flex flex-col gap-4 items-center" key={i}>
+                <div className="flex flex-col gap-4 items-center p-1" key={i}>
                   <Link
                     to={`/tv-series/series/${series.id}`}
                     onClick={() => dispatch(fetchSpecificSeries(series.id))}
                   >
                     <img
-                      className=" w-56 h-80 mb-8 rounded"
+                      className="w-56 mb-8 rounded"
                       src={series.poster_path}
                       alt="poster"
                     />
