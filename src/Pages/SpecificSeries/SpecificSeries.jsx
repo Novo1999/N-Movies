@@ -1,13 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../../Components";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchSpecificSeries } from "../../features/movies/moviesActions";
 import { useParams } from "react-router";
+import Button from "../../Components/Button";
 
-function SpecificMovie() {
+function SpecificSeries() {
   const { currentContent, isMoviesLoading, isSeriesLoading } = useSelector(
     (state) => state.movie
   );
+  const [isAddedToWatchList, setIsAddedToWatchList] = useState(false);
 
   const dispatch = useDispatch();
   const { id: seriesId } = useParams();
@@ -36,6 +38,20 @@ function SpecificMovie() {
     episode_run_time,
   } = currentContent;
 
+  console.log(currentContent);
+
+  const storedContents = localStorage.getItem("contents");
+
+  const contents = !storedContents ? [] : JSON.parse(storedContents);
+
+  useEffect(() => {
+    if (contents.some((item) => item.id === id)) {
+      setIsAddedToWatchList(true);
+    } else {
+      setIsAddedToWatchList(false);
+    }
+  }, [contents, id]);
+
   return (
     <section className="relative h-screen overflow-auto bg-slate-700">
       {isMoviesLoading || isSeriesLoading ? (
@@ -57,10 +73,14 @@ function SpecificMovie() {
               <div className="w-[60%] h-[30%] flex flex-col gap-4 bg-gray-900/20 p-10 mt-40">
                 <div className="flex gap-10 items-center">
                   <h1 className="text-5xl mt-4 mb-4">{name}</h1>
-                  <button className="flex items-center gap-2 border-2 p-2 h-14 rounded-md hover:bg-white hover:text-black transition-all duration-500">
-                    <span className="font-thin text-3xl">+</span> Add to
-                    Watchlist
-                  </button>
+                  <Button
+                    id={id}
+                    contents={contents}
+                    isAddedToWatchList={isAddedToWatchList}
+                    setIsAddedToWatchList={setIsAddedToWatchList}
+                    currentContent={currentContent}
+                    type="series"
+                  />
                 </div>
                 <p className="font-thin">
                   Last episode Aired on: {last_air_date}
@@ -168,4 +188,4 @@ function SpecificMovie() {
   );
 }
 
-export default SpecificMovie;
+export default SpecificSeries;

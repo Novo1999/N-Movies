@@ -11,7 +11,6 @@ export const movieSlice = createSlice({
     isSeriesLoading: false,
     currentContent: [],
     searchSuggestions: [],
-    watchlist: [],
     selectedFilters: {
       adult: null,
       sort: null,
@@ -119,10 +118,6 @@ export const movieSlice = createSlice({
     },
     filteredMoviesSpecificPage: (state, action) => {
       state.selectedFilters.page = action.payload;
-    },
-    // Watchlist
-    addToWatchList: (state, action) => {
-      state.watchlist = action.payload;
     },
   },
 });
