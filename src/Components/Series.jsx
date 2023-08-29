@@ -18,7 +18,7 @@ function Series() {
   }, [dispatch, popularSeriesPage]);
 
   return (
-    <section className="bg-rose-600 col-span-2 rounded-2xl relative overflow-hidden drop-shadow-xl shadow-xl">
+    <section className="bg-rose-600 col-span-2 h-96 rounded-2xl relative overflow-hidden drop-shadow-xl shadow-xl">
       {isSeriesLoading ? (
         <Spinner bottomposition="bottom-0" />
       ) : (

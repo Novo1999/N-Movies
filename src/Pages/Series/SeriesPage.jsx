@@ -6,17 +6,19 @@ import {
 } from "../../features/movies/moviesActions";
 import Spinner from "../../Components/Spinner/Spinner";
 import { Paginate, Search } from "../../Components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function SeriesPage() {
   const dispatch = useDispatch();
-  const { isSeriesLoading, popularSeries, popularSeriesPage } = useSelector(
+  const { isSeriesLoading, popularSeries } = useSelector(
     (state) => state.movie
   );
 
+  const location = useLocation();
+  const page = Number(location.pathname.split("-")[2]);
   useEffect(() => {
-    dispatch(fetchSeries("trending", "week", popularSeriesPage));
-  }, [dispatch, popularSeriesPage]);
+    dispatch(fetchSeries("trending", "week", page));
+  }, [dispatch, page]);
 
   return (
     <section className="col-span-4 row-span-2 relative movie-section  bg-yellow-700 h-[98.5rem]">

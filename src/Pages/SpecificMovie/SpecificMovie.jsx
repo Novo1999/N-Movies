@@ -1,12 +1,39 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../../Components";
 import { useParams } from "react-router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { fetchSpecificMovie } from "../../features/movies/moviesActions";
+import Loader from "./Loader/Loader";
 
 const ONE_MILLION = 1000000;
 
 function SpecificMovie() {
+  const [isAddedToWatchList, setIsAddedToWatchList] = useState(false);
+
+  const storedContents = localStorage.getItem("contents");
+
+  const contents = !storedContents ? [] : JSON.parse(storedContents);
+  console.log(contents);
+
+  function addToWatchList(content) {
+    const contentObject = {
+      id: content.id,
+      name: content.original_title,
+      poster: content.poster_path,
+    };
+    console.log(contentObject);
+    contents.push(contentObject);
+    localStorage.setItem("contents", JSON.stringify(contents));
+  }
+
+  function removeFromWatchList(id) {
+    const updatedContents = contents.filter((item) => {
+      const content = JSON.parse(item);
+      return content.id !== id;
+    });
+    localStorage.setItem("contents", JSON.stringify(updatedContents));
+  }
+
   const { currentContent, isMoviesLoading, isSeriesLoading } = useSelector(
     (state) => state.movie
   );
@@ -58,10 +85,31 @@ function SpecificMovie() {
               <div className="w-[60%] h-[30%] mt-40 flex flex-col gap-4 bg-gray-900/20 p-10">
                 <div className="flex gap-10 items-center">
                   <h1 className="text-5xl mt-4 mb-4">{title}</h1>
-                  <button className="flex items-center gap-2 border-2 p-2 h-14 rounded-md hover:bg-white hover:text-black transition-all duration-500">
-                    <span className="font-thin text-3xl">+</span> Add to
-                    Watchlist
-                  </button>
+                  {!isAddedToWatchList ? (
+                    <button
+                      onClick={() => {
+                        setIsAddedToWatchList((added) => !added);
+                        addToWatchList(currentContent);
+                      }}
+                      className="flex items-center gap-2 border-2 p-2 h-14 rounded-md hover:bg-white hover:text-black transition-all duration-500"
+                    >
+                      <span className="font-thin text-3xl">+</span>
+                      {/* <Loader /> */}
+                      Add to Watchlist
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => {
+                        setIsAddedToWatchList((added) => !added);
+                        removeFromWatchList(id);
+                      }}
+                      className="flex items-center gap-2 border-2 p-2 h-14 rounded-md hover:bg-white hover:text-black transition-all duration-500"
+                    >
+                      <span className="font-thin text-3xl">&#9745;</span>
+                      {/* <Loader /> */}
+                      Added to Watchlist
+                    </button>
+                  )}
                 </div>
                 <p className="font-bold">{status}</p>
                 <h3 className="text-lg">Release Date: {release_date}</h3>

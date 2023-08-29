@@ -9,7 +9,7 @@ import Spinner from "../../Components/Spinner/Spinner";
 import Paginate from "../../Components/Paginate";
 
 import { Search } from "../../Components";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function MoviesPage() {
   const { filtered } = useSelector((state) => state.movie);
@@ -24,7 +24,10 @@ function MoviesSection({ children }) {
   const dispatch = useDispatch();
   const { selectedFilters } = useSelector((state) => state.movie);
 
-  const { sort, adult, genre, year, page } = selectedFilters;
+  const { sort, adult, genre, year } = selectedFilters;
+
+  const location = useLocation();
+  const page = Number(location.pathname.split("-")[1]);
 
   useEffect(() => {
     dispatch(fetchContentsByFilter(sort, adult, genre, year, page));

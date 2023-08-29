@@ -11,7 +11,7 @@ export const movieSlice = createSlice({
     isSeriesLoading: false,
     currentContent: [],
     searchSuggestions: [],
-    watchList: [],
+    watchlist: [],
     selectedFilters: {
       adult: null,
       sort: null,
@@ -102,7 +102,6 @@ export const movieSlice = createSlice({
             : action.payload.genreArr.join(),
         page: 1,
       };
-      console.log(state.selectedFilters);
     },
     filterLoading: (state, action) => {
       state.isFilterLoading = action.payload;
@@ -120,6 +119,10 @@ export const movieSlice = createSlice({
     },
     filteredMoviesSpecificPage: (state, action) => {
       state.selectedFilters.page = action.payload;
+    },
+    // Watchlist
+    addToWatchList: (state, action) => {
+      state.watchlist = action.payload;
     },
   },
 });
@@ -149,6 +152,7 @@ export const {
   filteredMoviesNextPage,
   filteredMoviesPreviousPage,
   filteredMoviesSpecificPage,
+  addToWatchList,
 } = actions;
 
 export default reducer;
