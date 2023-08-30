@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../../Components";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchSpecificSeries } from "../../features/movies/moviesActions";
 import { useParams } from "react-router";
 import Button from "../../Components/Button";
@@ -42,7 +42,10 @@ function SpecificSeries() {
 
   const storedContents = localStorage.getItem("contents");
 
-  const contents = !storedContents ? [] : JSON.parse(storedContents);
+  const contents = useMemo(() => {
+    if (!storedContents) return [];
+    return JSON.parse(storedContents);
+  }, [storedContents]);
 
   useEffect(() => {
     if (contents.some((item) => item.id === id)) {
@@ -170,8 +173,6 @@ function SpecificSeries() {
                     </div>
                   );
                 })}
-                <p>{}</p>
-                <p>{}</p>
               </div>
               {episode_run_time?.map((item, i) => {
                 return (

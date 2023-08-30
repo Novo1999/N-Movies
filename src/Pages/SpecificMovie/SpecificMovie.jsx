@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../../Components";
 import { useParams } from "react-router";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { fetchSpecificMovie } from "../../features/movies/moviesActions";
 import Loader from "./Loader/Loader";
 import {
@@ -9,6 +9,7 @@ import {
   removeFromWatchList,
 } from "../../functions/WatchlistFunction";
 import Button from "../../Components/Button";
+// import { stored } from "../../functions/localstorage";
 
 const ONE_MILLION = 1000000;
 
@@ -41,28 +42,12 @@ function SpecificMovie() {
 
   const storedContents = localStorage.getItem("contents");
 
-  const contents = !storedContents ? [] : JSON.parse(storedContents);
+  // const contents = !storedContents ? [] : JSON.parse(storedContents);
 
-  // function addToWatchList(content) {
-  //   const contentObject = {
-  //     id: content.id,
-  //     name: content.original_title,
-  //     poster: content.poster_path,
-  //   };
-  //   console.log(contentObject);
-  //   contents.push(contentObject);
-  //   localStorage.setItem("contents", JSON.stringify(contents));
-  //   setIsAddedToWatchList(true);
-  // }
-
-  // function removeFromWatchList(id) {
-  //   const updatedContents = contents.filter((item) => {
-  //     return item.id !== id;
-  //   });
-  //   console.log(updatedContents);
-  //   localStorage.setItem("contents", JSON.stringify(updatedContents));
-  //   setIsAddedToWatchList(false);
-  // }
+  const contents = useMemo(() => {
+    if (!storedContents) return [];
+    return JSON.parse(storedContents);
+  }, [storedContents]);
 
   useEffect(() => {
     if (contents.some((item) => item.id === id)) {

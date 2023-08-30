@@ -1,4 +1,4 @@
-export function addToWatchList(content, contents, setIsAddedToWatchList, type) {
+export function addToWatchList(content, contents, setIsAdded, type) {
   const contentObject = {
     id: content.id,
     name: type === "movie" ? content.original_title : content.name,
@@ -7,13 +7,13 @@ export function addToWatchList(content, contents, setIsAddedToWatchList, type) {
   };
   contents.push(contentObject);
   localStorage.setItem("contents", JSON.stringify(contents));
-  setIsAddedToWatchList(true);
+  setIsAdded(true);
 }
 
-export function removeFromWatchList(id, contents, setIsAddedToWatchList) {
+export function removeFromWatchList(id, contents, setIsAdded) {
   const updatedContents = contents.filter((item) => {
     return item.id !== id;
   });
   localStorage.setItem("contents", JSON.stringify(updatedContents));
-  setIsAddedToWatchList(false);
+  setIsAdded(false);
 }
