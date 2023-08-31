@@ -4,19 +4,22 @@ import { useEffect, useMemo, useState } from "react";
 import { fetchSpecificSeries } from "../../features/movies/moviesActions";
 import { useParams } from "react-router";
 import Button from "../../Components/Button";
+import {
+  buttonStatus,
+  content,
+  storageKeyFavorites,
+  storageKeyWatchlist,
+} from "../SpecificMovie/SpecificMovie";
 
 function SpecificSeries() {
   const { currentContent, isMoviesLoading, isSeriesLoading } = useSelector(
     (state) => state.movie
   );
   const [isAddedToWatchList, setIsAddedToWatchList] = useState(false);
+  const [isAddedToFavorites, setIsAddedToFavorites] = useState(false);
 
   const dispatch = useDispatch();
   const { id: seriesId } = useParams();
-
-  useEffect(() => {
-    dispatch(fetchSpecificSeries(seriesId));
-  }, [seriesId, dispatch]);
 
   const {
     id,
@@ -40,20 +43,24 @@ function SpecificSeries() {
 
   console.log(currentContent);
 
-  const storedContents = localStorage.getItem("contents");
+  const watchlistStorage = localStorage.getItem(storageKeyWatchlist);
+  const favoritesStorage = localStorage.getItem(storageKeyFavorites);
 
-  const contents = useMemo(() => {
-    if (!storedContents) return [];
-    return JSON.parse(storedContents);
-  }, [storedContents]);
+  const watchlistedContents = content(watchlistStorage);
+
+  const favoriteContents = content(favoritesStorage);
 
   useEffect(() => {
-    if (contents.some((item) => item.id === id)) {
-      setIsAddedToWatchList(true);
-    } else {
-      setIsAddedToWatchList(false);
-    }
-  }, [contents, id]);
+    buttonStatus(watchlistedContents, setIsAddedToWatchList, id);
+  }, [watchlistedContents, id]);
+
+  useEffect(() => {
+    buttonStatus(favoriteContents, setIsAddedToFavorites, id);
+  }, [favoriteContents, id]);
+
+  useEffect(() => {
+    dispatch(fetchSpecificSeries(seriesId));
+  }, [seriesId, dispatch]);
 
   return (
     <section className="relative h-screen overflow-auto bg-slate-700">
@@ -78,12 +85,26 @@ function SpecificSeries() {
                   <h1 className="text-5xl mt-4 mb-4">{name}</h1>
                   <Button
                     id={id}
-                    contents={contents}
-                    isAddedToWatchList={isAddedToWatchList}
-                    setIsAddedToWatchList={setIsAddedToWatchList}
+                    contents={watchlistedContents}
+                    isAddedTo={isAddedToWatchList}
+                    setIsAddedTo={setIsAddedToWatchList}
                     currentContent={currentContent}
-                    type="series"
-                  />
+                    storageKey="watchlist"
+                    contentType="series"
+                  >
+                    Add to Watchlist
+                  </Button>
+                  <Button
+                    id={id}
+                    contents={favoriteContents}
+                    isAddedTo={isAddedToFavorites}
+                    setIsAddedTo={setIsAddedToFavorites}
+                    currentContent={currentContent}
+                    storageKey="favorites"
+                    contentType="series"
+                  >
+                    Add to Favorites
+                  </Button>
                 </div>
                 <p className="font-thin">
                   Last episode Aired on: {last_air_date}

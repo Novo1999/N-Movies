@@ -1,4 +1,5 @@
 import { Watchlist, Search, TopRated, Movies, Series } from "../../Components";
+import Favorites from "../../Components/Favorites";
 
 function Homepage() {
   return (
@@ -12,7 +13,7 @@ function Homepage() {
       <section className="grid grid-cols-5 h-4/5 gap-10">
         <Movies />
         <Series />
-        <TopRated />
+        <Favorites />
         <Watchlist />
       </section>
     </main>

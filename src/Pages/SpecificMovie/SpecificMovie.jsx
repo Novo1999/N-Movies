@@ -3,23 +3,34 @@ import { Spinner } from "../../Components";
 import { useParams } from "react-router";
 import { useEffect, useMemo, useState } from "react";
 import { fetchSpecificMovie } from "../../features/movies/moviesActions";
-import Loader from "./Loader/Loader";
-import {
-  addToWatchList,
-  removeFromWatchList,
-} from "../../functions/WatchlistFunction";
 import Button from "../../Components/Button";
-// import { stored } from "../../functions/localstorage";
+
+export const storageKeyWatchlist = "watchlist";
+export const storageKeyFavorites = "favorites";
 
 const ONE_MILLION = 1000000;
+
+export function content(type) {
+  if (!type) return [];
+  return JSON.parse(type);
+}
+
+export function buttonStatus(contents, setIsAddedTo, id) {
+  if (contents?.some((item) => item.id === id)) {
+    setIsAddedTo(true);
+  } else {
+    setIsAddedTo(false);
+  }
+}
 
 function SpecificMovie() {
   const { currentContent, isMoviesLoading, isSeriesLoading } = useSelector(
     (state) => state.movie
   );
+
   const dispatch = useDispatch();
   const [isAddedToWatchList, setIsAddedToWatchList] = useState(false);
-
+  const [isAddedToFavorites, setIsAddedToFavorites] = useState(false);
   const {
     id,
     title,
@@ -40,24 +51,20 @@ function SpecificMovie() {
     status,
   } = currentContent;
 
-  const storedContents = localStorage.getItem("contents");
+  const watchlistStorage = localStorage.getItem(storageKeyWatchlist);
+  const favoritesStorage = localStorage.getItem(storageKeyFavorites);
 
-  // const contents = !storedContents ? [] : JSON.parse(storedContents);
+  const watchlistedContents = content(watchlistStorage);
 
-  const contents = useMemo(() => {
-    if (!storedContents) return [];
-    return JSON.parse(storedContents);
-  }, [storedContents]);
+  const favoriteContents = content(favoritesStorage);
 
   useEffect(() => {
-    if (contents.some((item) => item.id === id)) {
-      setIsAddedToWatchList(true);
-    } else {
-      setIsAddedToWatchList(false);
-    }
-  }, [contents, id]);
+    buttonStatus(watchlistedContents, setIsAddedToWatchList, id);
+  }, [watchlistedContents, id]);
 
-  console.log(currentContent);
+  useEffect(() => {
+    buttonStatus(favoriteContents, setIsAddedToFavorites, id);
+  }, [favoriteContents, id]);
 
   const { id: movieId } = useParams();
 
@@ -88,12 +95,26 @@ function SpecificMovie() {
                   <h1 className="text-5xl mt-4 mb-4">{title}</h1>
                   <Button
                     id={id}
-                    contents={contents}
-                    isAddedToWatchList={isAddedToWatchList}
-                    setIsAddedToWatchList={setIsAddedToWatchList}
+                    contents={watchlistedContents}
+                    isAddedTo={isAddedToWatchList}
+                    setIsAddedTo={setIsAddedToWatchList}
                     currentContent={currentContent}
-                    type="movie"
-                  />
+                    storageKey="watchlist"
+                    contentType="movie"
+                  >
+                    Add to Watchlist
+                  </Button>
+                  <Button
+                    id={id}
+                    contents={favoriteContents}
+                    isAddedTo={isAddedToFavorites}
+                    setIsAddedTo={setIsAddedToFavorites}
+                    currentContent={currentContent}
+                    storageKey="favorites"
+                    contentType="movie"
+                  >
+                    Add to Favorites
+                  </Button>
                 </div>
                 <p className="font-bold">{status}</p>
                 <h3 className="text-lg">Release Date: {release_date}</h3>
