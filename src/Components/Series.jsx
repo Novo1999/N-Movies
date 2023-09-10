@@ -17,14 +17,15 @@ function Series() {
   }, [dispatch, popularSeriesPage]);
 
   return (
-    <section className="bg-rose-600 col-span-2 h-96 rounded-2xl relative overflow-hidden drop-shadow-xl shadow-xl">
+    <section className="bg-rose-600 col-span-2 h-96 rounded-2xl relative overflow-hidden drop-shadow-xl shadow-xl lg:h-96 md:h-72">
       {isSeriesLoading ? (
         <Spinner bottomposition="bottom-0" />
       ) : (
         <>
           <div className="flex justify-between ml-8 mr-6 h-10 relative top-4 items-center">
-            <h1 className="text-white text-xl text-center relative  font-thin">
-              Series - Trending
+            <h1 className="text-white text-xl text-center relative font-thin md:text-sm lg:text-lg flex gap-2">
+              <span>Series</span>
+              <span className="lg:block md:hidden">- Trending</span>
             </h1>
 
             <Link
@@ -34,7 +35,7 @@ function Series() {
               See More &#10140;
             </Link>
           </div>
-          <div className="grid grid-cols-4 absolute right-0 left-2 mt-8 h-[20rem] overflow-auto hide-scrollbar pb-10">
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 absolute right-0 left-2 mt-8 h-[20rem] overflow-auto hide-scrollbar pb-10">
             {popularSeries?.map((series, i) => {
               return (
                 <div className="flex flex-col gap-4 items-center" key={i}>
