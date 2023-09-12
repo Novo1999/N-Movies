@@ -70,15 +70,10 @@ function Search({ text }) {
         <input
           value={keyword}
           onChange={(e) => setKeyword(e.target.value)}
-          className="w-36 lg:w-96 mb-2 h-8 rounded text-black pl-2 font-semibold"
+          className="w-36 sm:w-80 lg:w-96 mb-2 h-8 rounded text-black pl-2 font-semibold"
           type="text"
           id="search"
           name="search"
-        />
-        <input
-          className="cursor-pointer ml-4 relative bg-blue-400 p-2 rounded-full hover:bg-black hover:translate-y-1 transition-all w-24 mb-2"
-          type="submit"
-          value="Search"
         />
       </form>
     </section>
