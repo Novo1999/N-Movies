@@ -24,23 +24,23 @@ const MoviesSection = memo(function MoviesSection() {
   }, [dispatch, popularMoviesPage]);
 
   return (
-    <section className="col-span-3 row-span-2 md:h-[40rem] lg:h-[50.24rem] relative bg-sky-500 rounded-2xl overflow-hidden drop-shadow-xl shadow-xl">
+    <section className="col-span-2 xl:h-[56.6rem] xl:col-span-3 lg:col-span-3 row-span-2 md:h-[40rem] lg:h-[50.24rem] relative bg-sky-500 rounded-2xl overflow-hidden drop-shadow-xl shadow-xl">
       {isMoviesLoading ? (
         <Spinner bottomposition="bottom-0" />
       ) : (
         <>
-          <div className="overflow-hidden flex justify-between ml-8 mr-6 h-14 top-4 relative items-center">
+          <div className="overflow-hidden flex justify-between ml-8 mr-6 h-20 top-2 relative items-center">
             <h1 className="text-white text-center relative font-thin md:text-md lg:text-xl">
               Movies - Popular Now
             </h1>
             <Link
               to={`movies/page-${popularMoviesPage}`}
-              className="bg-blue-700 flex justify-center items-center pl-4 pr-4 rounded-3xl text-white lg:h-12 md:h-10 hover:bg-black transition-all shadow-md"
+              className="bg-blue-700 flex justify-center items-center pl-4 pr-4 rounded-3xl text-white h-12 lg:h-12 md:h-10 hover:bg-black transition-all shadow-md"
             >
               See More &#10140;
             </Link>
           </div>
-          <div className="grid lg:grid-cols-5 md:grid-cols-2 left-3 lg:top-4 md:top-0 relative overflow-auto  p-4 pb-28 h-[48rem]">
+          <div className="grid grid-cols-2 lg:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 left-3 lg:top-4 md:top-0 relative overflow-auto  p-4 pb-28 h-[48rem]">
             {popularMovies?.map((movie, i) => {
               return (
                 <div className="flex flex-col items-center pr-5 mt-4" key={i}>
