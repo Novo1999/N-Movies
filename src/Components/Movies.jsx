@@ -24,7 +24,7 @@ const MoviesSection = memo(function MoviesSection() {
   }, [dispatch, popularMoviesPage]);
 
   return (
-    <section className="col-span-2 xl:h-[56.6rem] xl:col-span-3 lg:col-span-3 row-span-2 md:h-[40rem] lg:h-[50.24rem] relative bg-sky-500 rounded-2xl overflow-hidden drop-shadow-xl shadow-xl">
+    <section className="col-span-2 xl:col-span-3 lg:col-span-3 row-span-2 h-[50rem] relative bg-sky-500 rounded-2xl overflow-hidden drop-shadow-xl shadow-xl">
       {isMoviesLoading ? (
         <Spinner bottomposition="bottom-0" />
       ) : (
@@ -40,7 +40,7 @@ const MoviesSection = memo(function MoviesSection() {
               See More &#10140;
             </Link>
           </div>
-          <div className="grid grid-cols-2 lg:grid-cols-5 xl:grid-cols-4 md:grid-cols-3 sm:grid-cols-2 left-3 lg:top-4 md:top-0 relative overflow-auto  p-4 pb-28 h-[48rem]">
+          <div className="grid grid-cols-2 lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-2 left-3 lg:top-4 md:top-0 relative overflow-auto  p-4 pb-28 h-[48rem]">
             {popularMovies?.map((movie, i) => {
               return (
                 <div className="flex flex-col items-center pr-5 mt-4" key={i}>

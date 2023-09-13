@@ -33,7 +33,7 @@ function LocalStorage({ type, storageKey, bgColor }) {
 
   return (
     <section
-      className={`rounded-2xl col-span-2 xl:col-span-1 lg:col-span-3 row-span-1 ${bgColor} relative drop-shadow-xl h-96 shadow-xl grid overflow-hidden`}
+      className={`rounded-2xl col-span-2 xl:col-span-1 lg:col-span-3 row-span-1 ${bgColor} relative drop-shadow-xl h-72 bottom-2 shadow-xl grid overflow-hidden`}
     >
       {showDeletePopup ? (
         <div className="flex items-center justify-center flex-col">
@@ -74,7 +74,7 @@ function LocalStorage({ type, storageKey, bgColor }) {
               <p className="text-white">Add Something to your {type}</p>
             </div>
           )}
-          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-1 lg:grid-cols-5 left-3 top-2 relative overflow-scroll mt-2 p-4 ">
+          <div className="grid grid-cols-2 md:grid-cols-3 xl:grid-cols-3 lg:grid-cols-5 left-3 top-2 relative overflow-scroll mt-2 p-4 ">
             {storedContents?.map((content, i) => {
               return (
                 <div className="flex flex-col items-center pr-5" key={i}>
@@ -92,7 +92,7 @@ function LocalStorage({ type, storageKey, bgColor }) {
                       alt="poster"
                     />
                   </Link>
-                  <p className="text-white font-semibold relative bottom-5 text-lg mt-2 w-28 text-center ">
+                  <p className="text-white font-semibold relative bottom-5 text-lg mt-2 w-28 text-center xl:text-xs">
                     {content.name}
                   </p>
                 </div>

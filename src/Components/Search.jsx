@@ -14,7 +14,7 @@ function Search({ text }) {
   }, [keyword, dispatch]);
 
   return (
-    <section className="relative flex items-center gap-4">
+    <section className="relative flex items-center gap-8">
       <Filter />
       <form
         autoComplete="off"

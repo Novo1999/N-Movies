@@ -10,7 +10,7 @@ function Homepage() {
         </h1>
         <Search text="anything" />
       </div>
-      <section className="grid lg:grid-cols-3 xl:grid-cols-5 gap-10 pb-10">
+      <section className="grid lg:grid-cols-3 xl:grid-cols-5 gap-10 pb-10 lg:pb-0">
         <Movies />
         <Series />
         <Favorites />
