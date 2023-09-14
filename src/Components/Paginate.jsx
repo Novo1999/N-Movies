@@ -1,4 +1,3 @@
-import { useCallback, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
   filteredMoviesNextPage,
@@ -21,33 +20,9 @@ function Paginate({ pageOf }) {
     popularSeriesPage,
     popularSeries,
     filtered,
-    selectedFilters,
     filteredPage,
   } = useSelector((state) => state.movie);
-  const [currentBtn, setCurrentBtn] = useState(null);
-  const [path, setPath] = useState("");
   const buttonCommonStyles = `rounded-3xl bg-indigo-200 border-2 border-none p-1 hover:text-white transition-all font-semibold shadow-md`;
-
-  // useEffect(() => {
-  //   if (pageOf === popularMovies) {
-  //     setPath(`/movies/page-${popularMoviesPage}`);
-  //   }
-  //   if (pageOf === popularSeries) {
-  //     setPath(`/tv-series/page-${popularSeriesPage}`);
-  //   }
-  //   if (pageOf === filtered) {
-  //     setPath(`/filter/page-${filteredPage}`);
-  //   }
-  // }, [
-  //   filtered,
-  //   popularMovies,
-  //   selectedFilters,
-  //   popularSeries,
-  //   filteredPage,
-  //   popularMoviesPage,
-  //   popularSeriesPage,
-  //   pageOf,
-  // ]);
 
   function determinePreviousButtonVisibility() {
     if (pageOf === popularSeries) {
@@ -144,7 +119,7 @@ function Paginate({ pageOf }) {
 
   return (
     <section
-      className="relative top-[24rem] w-[100%] p-1 h-36 
+      className="relative top-[15rem] p-1 h-36 flex justify-center
     "
     >
       <div className="flex justify-center items-center gap-3">

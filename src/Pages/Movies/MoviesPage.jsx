@@ -43,7 +43,7 @@ function Button({ children }) {
   );
 
   return (
-    <section className="col-span-3 row-span-2 relative h-[112.5rem] movie-section overflow-hidden overflow-x-hidden bg-slate-900">
+    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-hidden overflow-x-hidden bg-slate-900">
       <img
         className="absolute h-[180vh] blur-sm"
         src="/images/movie-bg.jpg"
@@ -61,7 +61,7 @@ function Button({ children }) {
               <Search text="movies" />
             </div>
           </div>
-          <div className="grid grid-cols-6 absolute right-0 left-2 mt-10 h-screen p-20 overflow-scroll">
+          <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 absolute right-0 left-2 mt-10 p-2 h-screen justify-center overflow-scroll">
             {popularMovies?.map((movie, i) => {
               return (
                 <div
@@ -80,16 +80,16 @@ function Button({ children }) {
                       alt="poster"
                     />
                   </Link>
-                  <p className="text-white font-semibold relative bottom-5 text-s text-center ">
+                  <p className="text-white lg:text-lg text-xs font-semibold relative bottom-5 text-s text-center">
                     {movie.title}
                   </p>
                 </div>
               );
             })}
-            {children}
           </div>
         </>
       )}
+      <span className="relative bottom-0">{children}</span>
     </section>
   );
 }
