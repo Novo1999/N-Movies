@@ -149,11 +149,11 @@ function SpecificMovie() {
 
             <div className="w-full h-full mt-4 gap-4 bg-gray-900/20 z-10 p-10 text-white font-thin text-md ">
               {/* Genre */}
-              <div className="flex gap-3 flex-col items-center mb-10 sm:flex-row sm:grid sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-10">
+              <div className="flex flex-col gap-4 items-center mb-10 sm:flex-row sm:grid sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-10">
                 <p>Genre: </p>
                 {genres?.map((genre) => (
                   <p
-                    className="border-2 w-min p-2 rounded-md text-center"
+                    className="border-2 w-full p-2 rounded-md text-center"
                     key={genre.name}
                   >
                     {genre.name}
@@ -161,7 +161,7 @@ function SpecificMovie() {
                 ))}
               </div>
               {/* Companies */}
-              <div className="flex items-center flex-col gap-6 md:grid md:grid-cols-4 pt-6 pb-6">
+              <div className="flex items-center flex-col gap-6 md:grid pt-6 pb-6">
                 <p className="text-white font-bold text-lg">
                   Production Companies:
                 </p>
