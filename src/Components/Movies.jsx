@@ -9,7 +9,7 @@ import Spinner from "./Spinner/Spinner";
 import { Link } from "react-router-dom";
 
 function Movies() {
-  return <MoviesSection></MoviesSection>;
+  return <MoviesSection />
 }
 
 const MoviesSection = memo(function MoviesSection() {

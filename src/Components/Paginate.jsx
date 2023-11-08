@@ -119,7 +119,7 @@ function Paginate({ pageOf }) {
 
   return (
     <section
-      className="relative top-[15rem] p-1 h-36 flex justify-center
+      className="p-1 flex justify-center h-20 fixed bottom-0 left-0 right-0
     "
     >
       <div className="flex justify-center items-center gap-3">

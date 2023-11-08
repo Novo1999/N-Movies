@@ -43,14 +43,14 @@ function Button({ children }) {
   const { filtered, isFilterLoading } = useSelector((state) => state.movie);
 
   return (
-    <section className="col-span-3 row-span-2 relative h-[112.5rem] movie-section overflow-hidden overflow-x-hidden bg-slate-900">
+    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-hidden overflow-x-hidden bg-slate-900">
       <img
         className="absolute h-[180vh] blur-sm"
         src="/images/movie-bg.jpg"
         alt="movie bg"
       />
       {isFilterLoading ? (
-        <Spinner bottomposition="bottom-[50rem]" />
+        <Spinner bottomposition="bottom-[0rem]" />
       ) : (
         <>
           <div className="flex ml-8 mr-6 h-14 top-4 relative items-center">

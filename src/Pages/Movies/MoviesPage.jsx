@@ -13,16 +13,14 @@ import { Link, useLocation } from "react-router-dom";
 
 function MoviesPage() {
   const { popularMovies } = useSelector((state) => state.movie);
-  return (
-    <MoviesSection>
-      <Paginate pageOf={popularMovies} />
-    </MoviesSection>
-  );
+  return <MoviesSection>
+    <Paginate pageOf={popularMovies} />
+  </MoviesSection>;
 }
 
 function MoviesSection({ children }) {
+
   const dispatch = useDispatch();
-  // const { popularMoviesPage } = useSelector((state) => state.movie);
 
   const location = useLocation();
   const page = Number(location.pathname.split("-")[1]);
@@ -31,65 +29,70 @@ function MoviesSection({ children }) {
     dispatch(fetchMovies("popular", page));
   }, [dispatch, page]);
 
-  return <Button>{children}</Button>;
+  return (
+    <div className="bg-transparent">
+      <AllMovies />
+      {children}
+    </div>
+  );
 }
 
-export default MoviesPage;
-
-function Button({ children }) {
+function AllMovies() {
   const dispatch = useDispatch();
   const { popularMovies, isMoviesLoading } = useSelector(
     (state) => state.movie
   );
 
   return (
-    <section className="col-span-3 row-span-2 relative h-screen movie-section overflow-hidden overflow-x-hidden bg-slate-900">
-      <img
-        className="absolute h-[180vh] blur-sm"
-        src="/images/movie-bg.jpg"
-        alt="movie bg"
-      />
-      {isMoviesLoading ? (
-        <Spinner bottomposition="bottom-[50rem]" />
-      ) : (
-        <>
-          <div className="flex ml-8 mr-6 h-14 top-4 relative items-center">
-            <h1 className="text-white text-xl text-center relative font-thin">
-              Movies - Popular Now
-            </h1>
-            <div className="m-auto relative bottom-6">
-              <Search text="movies" />
+    <>
+      <section className="col-span-3 row-span-2 h-screen relative movie-section bg-slate-900">
+        <img
+          className="absolute h-[180vh] blur-sm"
+          src="/images/movie-bg.jpg"
+          alt="movie bg"
+        />
+        {isMoviesLoading ? (
+          <Spinner bottomposition="bottom-[50rem]" />
+        ) : (
+          <>
+            <div className="flex ml-8 mr-6 h-14 top-4 relative items-center">
+              <h1 className="text-white text-xl text-center relative font-thin">
+                Movies - Popular Now
+              </h1>
+              <div className="m-auto relative bottom-6">
+                <Search text="movies" />
+              </div>
             </div>
-          </div>
-          <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 absolute right-0 left-2 mt-10 p-2 h-screen justify-center overflow-scroll">
-            {popularMovies?.map((movie, i) => {
-              return (
-                <div
-                  className="flex flex-col items-center justify-center p-1"
-                  key={i}
-                >
-                  <Link
-                    to={`/movies/movie/${movie.id}`}
-                    onClick={() => {
-                      dispatch(fetchSpecificMovie(movie.id));
-                    }}
+            <div className="grid grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 absolute right-0 left-2 mt-10 pb-20 h-full justify-center overflow-auto">
+              {popularMovies?.map((movie, i) => {
+                return (
+                  <div
+                    className="flex flex-col items-center justify-center p-1"
+                    key={i}
                   >
-                    <img
-                      className="w-56 mb-8 rounded"
-                      src={movie.poster_path}
-                      alt="poster"
-                    />
-                  </Link>
-                  <p className="text-white lg:text-lg text-xs font-semibold relative bottom-5 text-s text-center">
-                    {movie.title}
-                  </p>
-                </div>
-              );
-            })}
-          </div>
-        </>
-      )}
-      <span className="relative bottom-0">{children}</span>
-    </section>
+                    <Link
+                      to={`/movies/movie/${movie.id}`}
+                      onClick={() => {
+                        dispatch(fetchSpecificMovie(movie.id));
+                      }}
+                    >
+                      <img
+                        className="w-56 mb-8 rounded"
+                        src={movie.poster_path}
+                        alt="poster"
+                      />
+                    </Link>
+                    <p className="text-white lg:text-lg text-xs font-semibold relative bottom-5 text-s text-center">
+                      {movie.title}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </>
+        )}
+      </section>
+    </>
   );
 }
+export default MoviesPage;

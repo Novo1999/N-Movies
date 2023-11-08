@@ -44,7 +44,7 @@ function Search({ text }) {
                       <img
                         className="h-24"
                         src={`https://image.tmdb.org/t/p/original${content.poster_path}`}
-                        alt=""
+                        alt="poster"
                       />
                       <div className="flex flex-col gap-3">
                         <p className="text-md w-64 font-semibold">

@@ -86,12 +86,12 @@ function SpecificMovie() {
             />
             <div className="flex flex-col justify-center items-center relative z-1 text-white drop-shadow mb-10">
               <img
-                className="w-[70%] md:w-[50%] lg:w-[35%] xl:w-[20%] h-[50%] mt-8"
+                className="w-[50%] md:w-[50%] lg:w-[35%] xl:w-[20%] h-[50%] mt-8"
                 src={poster_path}
                 alt="movie"
               />
               <div className="h-[30%] mt-10 flex flex-col gap-4 bg-gray-900/20 p-10">
-                <div className="flex gap-10 items-center flex-col sm:flex-row">
+                <div className="flex gap-10 items-center flex-col sm:flex-row ">
                   <h1 className="text-3xl sm:text-2xl mt-4 mb-4">{title}</h1>
                   <Button
                     id={id}
@@ -118,7 +118,7 @@ function SpecificMovie() {
                 </div>
                 <p className="font-bold">{status}</p>
                 <h3 className="text-lg">Release Date: {release_date}</h3>
-                <p className="text-xl mb-4">{overview}</p>
+                <p className="text-sm mb-4">{overview}</p>
                 <p className="text-xl">Popularity : {popularity}</p>
                 <p className="text-lg">Average Rating : {vote_average}</p>
 
