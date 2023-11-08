@@ -143,7 +143,7 @@ function SpecificSeries() {
               <div className="flex gap-3 flex-col items-center mb-10 sm:flex-row sm:grid sm:grid-cols-5 md:grid-cols-6 lg:grid-cols-10">
                 <p>Genre: </p>
                 {genres?.map((genre) => (
-                  <p className="border-2 w-fit p-2 rounded-md" key={genre.name}>
+                  <p className="border-2 w-full p-2 rounded-md" key={genre.name}>
                     {genre.name}
                   </p>
                 ))}
